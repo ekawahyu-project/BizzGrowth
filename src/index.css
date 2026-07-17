@@ -1,0 +1,214 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background-color: #f7f6fb;
+  color: #0b1c30;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  vertical-align: middle;
+  line-height: 1;
+}
+.icon-fill {
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(103,61,205,0.3); border-radius: 4px; }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(103,61,205,0.5); }
+
+/* Barely-there ambient tint behind the app — the mockup uses a clean, mostly
+   white/lavender background, not heavy color blobs, so keep this subtle. */
+.bg-aurora {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #f7f6fb;
+}
+.bg-aurora::before,
+.bg-aurora::after,
+.bg-aurora .blob {
+  content: "";
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(110px);
+  opacity: 0.16;
+}
+.bg-aurora::before {
+  width: 34vw;
+  height: 34vw;
+  top: -10%;
+  left: -6%;
+  background: radial-gradient(circle, #a37ef0, transparent 70%);
+  animation: blob-float-a 26s ease-in-out infinite;
+}
+.bg-aurora::after {
+  width: 30vw;
+  height: 30vw;
+  bottom: -12%;
+  right: -6%;
+  background: radial-gradient(circle, #6889ff, transparent 70%);
+  animation: blob-float-b 30s ease-in-out infinite;
+}
+.bg-aurora .blob {
+  width: 24vw;
+  height: 24vw;
+  top: 40%;
+  left: 48%;
+  background: radial-gradient(circle, #49e08d, transparent 70%);
+  opacity: 0.10;
+  animation: blob-float-c 34s ease-in-out infinite;
+}
+@keyframes blob-float-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(6vw, 8vh) scale(1.15); }
+}
+@keyframes blob-float-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-5vw, -6vh) scale(1.1); }
+}
+@keyframes blob-float-c {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-58%, -42%) scale(1.2); }
+}
+
+/* Clean solid card — matches the mockup's opaque white cards with soft shadow
+   (not translucent glass; the glass-card variant below is reserved for a few
+   accent surfaces like the AI Mentor banner on Beranda). */
+.premium-card {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.05);
+  box-shadow: 0 2px 10px -2px rgba(31, 20, 74, 0.06), 0 1px 3px rgba(31, 20, 74, 0.04);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.premium-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -8px rgba(103, 61, 205, 0.14), 0 2px 6px rgba(103, 61, 205, 0.05);
+}
+
+/* Glass accent — used sparingly (e.g. the AI Mentor prompt inside the purple banner) */
+.glass-card {
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* Dark glass — unused now that sidebar/header switched to a light theme, kept for safety */
+.glass-dark {
+  background: rgba(15, 12, 28, 0.6);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Solid modal surface — matches the clean opaque cards in the mockup */
+.glass-modal {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.glass-chip {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.auth-bg { background: transparent; }
+
+@keyframes page-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page-transition {
+  animation: page-fade-in 0.32s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.custom-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 9999px;
+  background: linear-gradient(to right, #673dcd var(--progress, 50%), rgba(148,163,184,0.35) var(--progress, 50%));
+  outline: none;
+}
+.custom-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background: #673dcd;
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(103,61,205,0.4);
+  cursor: pointer;
+  margin-top: -6px;
+  transition: transform 0.15s ease;
+}
+.custom-slider::-webkit-slider-thumb:hover { transform: scale(1.15); }
+.custom-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background: #673dcd;
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(103,61,205,0.4);
+  cursor: pointer;
+}
+
+.nav-active {
+  background: linear-gradient(90deg, rgba(103,61,205,0.30) 0%, rgba(103,61,205,0.08) 100%);
+  color: #c0a8f7;
+  border-left: 3px solid #a37ef0;
+  box-shadow: inset 0 0 20px rgba(103,61,205,0.08);
+}
+.nav-link {
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  border-left: 3px solid transparent;
+}
+.nav-link:hover { transform: translateX(2px); }
+
+.typing-dot { animation: typing-bounce 1.2s infinite ease-in-out; }
+.typing-dot:nth-child(2) { animation-delay: 0.15s; }
+.typing-dot:nth-child(3) { animation-delay: 0.3s; }
+@keyframes typing-bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+  30% { transform: translateY(-4px); opacity: 1; }
+}
+
+.btn-glow { position: relative; overflow: hidden; }
+.btn-glow::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -60%;
+  width: 40%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.35), transparent);
+  transform: skewX(-20deg);
+  animation: btn-shimmer 3.2s ease-in-out infinite;
+}
+@keyframes btn-shimmer {
+  0% { left: -60%; }
+  50% { left: 130%; }
+  100% { left: 130%; }
+}
+
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.float-soft { animation: float-soft 4s ease-in-out infinite; }

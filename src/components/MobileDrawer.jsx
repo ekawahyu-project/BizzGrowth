@@ -49,7 +49,7 @@ export default function MobileDrawer({ open, onClose }) {
             </div>
             <div>
               <p className="font-bold text-slate-900 text-base leading-tight">BizGrowth</p>
-              <p className="text-[10px] text-slate-400 font-medium leading-tight">AI Partner Bisnis UMKM</p>
+              <p className="text-[10px] text-slate-400 font-medium leading-tight">Partner Bisnis</p>
             </div>
           </div>
           <button onClick={onClose} className="p-1.5 hover:bg-slate-100 rounded-lg text-slate-400 shrink-0">

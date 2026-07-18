@@ -26,7 +26,7 @@ navigasi bergaya aplikasi native (back-arrow per halaman).
 | `/simulasi` | Simulator (alur: daftar → atur parameter → hasil) |
 | `/insight` | Optimasi Keuangan: skor kesehatan, ringkasan, proyeksi 5 tahun |
 | `/ekspansi` | Kesiapan Pasar Global: skor ekspor + negara potensial |
-| `/mentor` | AI Business Mentor (chat) |
+| `/mentor` | Alpet AI (chat) |
 | `/profil` | Profil, dompet koin, pengaturan akun |
 
 ## Model Bisnis Koin

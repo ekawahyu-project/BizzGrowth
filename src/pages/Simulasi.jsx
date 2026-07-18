@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useApp } from "../context/AppContext";
 
 const HISTORY = [
@@ -41,7 +41,8 @@ function formatRp(n) {
 
 export default function Simulasi() {
   const [params] = useSearchParams();
-  const { triggerSimulation, showToast } = useApp();
+  const navigate = useNavigate();
+  const { triggerSimulation, showToast, products } = useApp();
 
   const [view, setView] = useState("list"); // list | form | result
 
@@ -59,7 +60,9 @@ export default function Simulasi() {
   const [pricePct, setPricePct] = useState(10);
   const [scaleType, setScaleType] = useState(null);
   const [promoStrategies, setPromoStrategies] = useState([]);
-  const [produkBundling, setProdukBundling] = useState("");
+  const [bundledProductIds, setBundledProductIds] = useState([]);
+  const [buyProductId, setBuyProductId] = useState("");
+  const [getProductId, setGetProductId] = useState("");
 
   const [running, setRunning] = useState(false);
   const [result, setResult] = useState(null);
@@ -81,6 +84,10 @@ export default function Simulasi() {
 
   function togglePromo(p) {
     setPromoStrategies((prev) => (prev.includes(p) ? prev.filter((x) => x !== p) : [...prev, p]));
+  }
+
+  function toggleBundledProduct(id) {
+    setBundledProductIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
   }
 
   const cost = getSimCost(scaleType);
@@ -141,7 +148,9 @@ export default function Simulasi() {
       bepNum,
       untungRuguDeltaPct,
       promoStrategies,
-      produkBundling,
+      bundledProducts: products.filter((p) => bundledProductIds.includes(p.id)),
+      buyProduct: products.find((p) => p.id === buyProductId) || null,
+      getProduct: products.find((p) => p.id === getProductId) || null,
       scaleLabel: SCALE_OPTIONS.find((s) => s.key === scaleType)?.label ?? SCALE_OPTIONS[0].label,
     };
   }
@@ -252,7 +261,7 @@ export default function Simulasi() {
                 label="Nama Produk"
                 value={namaProduk}
                 onChange={setNamaProduk}
-                placeholder="Contoh: Kopi Susu Gula Aren"
+                placeholder="Contoh: Ipong 17 Pro Mag"
               />
             </div>
 
@@ -350,19 +359,84 @@ export default function Simulasi() {
                   );
                 })}
               </div>
-              {promoStrategies.includes("Bundling Produk") && (
+              {(promoStrategies.includes("Bundling Produk") ||
+                promoStrategies.includes("Buy 1 Get 1") ||
+                promoStrategies.includes("Buy 1 Get 3")) &&
+                products.length === 0 && (
+                  <div className="mt-3 p-3 bg-amber-50 border border-amber-200 rounded-xl flex items-center justify-between gap-3 animate-fade-in-up">
+                    <p className="text-xs text-amber-800">
+                      Anda belum punya produk terdaftar. Tambahkan dulu di halaman Profil.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => navigate("/profil")}
+                      className="text-xs font-bold text-amber-900 underline shrink-0"
+                    >
+                      Ke Profil
+                    </button>
+                  </div>
+                )}
+
+              {promoStrategies.includes("Bundling Produk") && products.length > 0 && (
                 <div className="mt-3 animate-fade-in-up">
-                  <TextField
-                    label="Produk yang Dibundling"
-                    value={produkBundling}
-                    onChange={setProdukBundling}
-                    placeholder="Contoh: Kopi Susu + Roti Bakar"
-                  />
-                  <p className="text-[11px] text-slate-400 mt-1">
-                    Sebutkan produk apa saja yang digabung dalam satu paket bundling.
-                  </p>
+                  <label className="block text-xs font-semibold text-slate-600 mb-1.5">
+                    Pilih Produk yang Dibundling
+                  </label>
+                  <div className="flex flex-wrap gap-2">
+                    {products.map((p) => {
+                      const active = bundledProductIds.includes(p.id);
+                      return (
+                        <button
+                          key={p.id}
+                          type="button"
+                          onClick={() => toggleBundledProduct(p.id)}
+                          className={`px-3 py-1.5 rounded-full border-2 text-xs font-semibold transition-all ${
+                            active ? "border-primary-600 bg-primary-50 text-primary-700" : "border-slate-200 text-slate-600"
+                          }`}
+                        >
+                          {p.name}
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
               )}
+
+              {(promoStrategies.includes("Buy 1 Get 1") || promoStrategies.includes("Buy 1 Get 3")) &&
+                products.length > 0 && (
+                  <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3 animate-fade-in-up">
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-600 mb-1.5">Produk yang Dibeli</label>
+                      <select
+                        value={buyProductId}
+                        onChange={(e) => setBuyProductId(e.target.value)}
+                        className="w-full px-3 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 outline-none text-sm bg-white"
+                      >
+                        <option value="">Pilih produk...</option>
+                        {products.map((p) => (
+                          <option key={p.id} value={p.id}>
+                            {p.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-600 mb-1.5">Produk Gratis</label>
+                      <select
+                        value={getProductId}
+                        onChange={(e) => setGetProductId(e.target.value)}
+                        className="w-full px-3 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 outline-none text-sm bg-white"
+                      >
+                        <option value="">Pilih produk...</option>
+                        {products.map((p) => (
+                          <option key={p.id} value={p.id}>
+                            {p.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                )}
             </div>
 
             <div>
@@ -527,9 +601,16 @@ export default function Simulasi() {
                       </span>
                     ))}
                   </div>
-                  {result.promoStrategies.includes("Bundling Produk") && result.produkBundling && (
+                  {result.bundledProducts?.length > 0 && (
                     <p className="text-xs text-slate-500 mt-3">
-                      <span className="font-semibold text-slate-700">Produk dibundling:</span> {result.produkBundling}
+                      <span className="font-semibold text-slate-700">Produk dibundling:</span>{" "}
+                      {result.bundledProducts.map((p) => p.name).join(" + ")}
+                    </p>
+                  )}
+                  {(result.buyProduct || result.getProduct) && (
+                    <p className="text-xs text-slate-500 mt-3">
+                      <span className="font-semibold text-slate-700">Beli:</span> {result.buyProduct?.name || "-"}{" "}
+                      <span className="font-semibold text-slate-700">→ Gratis:</span> {result.getProduct?.name || "-"}
                     </p>
                   )}
                 </div>

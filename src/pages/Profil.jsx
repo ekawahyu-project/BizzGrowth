@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useApp } from "../context/AppContext";
 
@@ -77,7 +78,7 @@ export default function Profil() {
           <h2 className="font-bold text-2xl text-slate-900">{profile.owner || "Eka Wahyu"}</h2>
           <p className="text-slate-500 flex items-center justify-center md:justify-start gap-1.5 mt-0.5">
             <span className="material-symbols-outlined text-primary-600 text-base">storefront</span>
-            <span className="font-medium">{profile.business || "Kopi Kenangan Rakyat"}</span>
+            <span className="font-medium">{profile.business || "Cysec ID"}</span>
           </p>
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mt-3">
             <Badge icon="check_circle" color="tertiary">
@@ -102,6 +103,9 @@ export default function Profil() {
           </button>
         </div>
       </section>
+
+      {/* Manajemen Produk */}
+      <ProductManager />
 
       {/* Bento grid */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-5 mb-5">
@@ -272,5 +276,84 @@ function InfoRow({ label, value, valueColor = "text-slate-800", icon }) {
         {value}
       </span>
     </div>
+  );
+}
+
+function ProductManager() {
+  const { products, addProduct, removeProduct } = useApp();
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+
+  function handleAdd(e) {
+    e.preventDefault();
+    if (!name.trim()) return;
+    addProduct(name, price);
+    setName("");
+    setPrice("");
+  }
+
+  return (
+    <section className="premium-card rounded-2xl overflow-hidden mb-5">
+      <div className="px-5 py-4 border-b border-slate-100 bg-slate-50/50 flex items-center gap-2">
+        <span className="material-symbols-outlined text-primary-600">inventory_2</span>
+        <div>
+          <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest">Manajemen Produk</h3>
+          <p className="text-[11px] text-slate-400 mt-0.5">
+            Semua produk UMKM Anda — nanti bisa dipilih langsung saat mengatur strategi promosi/bundling di Simulasi.
+          </p>
+        </div>
+      </div>
+
+      <div className="p-5 space-y-3">
+        {products.length === 0 && (
+          <p className="text-sm text-slate-400 text-center py-4">Belum ada produk. Tambahkan di bawah ini.</p>
+        )}
+        {products.map((p) => (
+          <div key={p.id} className="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
+            <div>
+              <p className="text-sm font-bold text-slate-800">{p.name}</p>
+              {p.price ? (
+                <p className="text-xs text-primary-600 font-mono font-semibold">
+                  Rp {Number(p.price).toLocaleString("id-ID")}
+                </p>
+              ) : (
+                <p className="text-xs text-slate-400">Harga belum diisi</p>
+              )}
+            </div>
+            <button
+              onClick={() => removeProduct(p.id)}
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-rose-500 hover:bg-rose-50 transition-colors shrink-0"
+            >
+              <span className="material-symbols-outlined text-lg">delete</span>
+            </button>
+          </div>
+        ))}
+
+        <form onSubmit={handleAdd} className="flex flex-col sm:flex-row gap-2 pt-2">
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Nama produk baru"
+            className="flex-grow px-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-sm"
+          />
+          <div className="relative sm:w-40">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold">Rp</span>
+            <input
+              value={price}
+              onChange={(e) => setPrice(e.target.value.replace(/[^0-9]/g, ""))}
+              placeholder="Harga (opsional)"
+              className="w-full pl-9 pr-3 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-sm"
+            />
+          </div>
+          <button
+            type="submit"
+            className="px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-xl text-sm transition-all shrink-0 flex items-center justify-center gap-1.5"
+          >
+            <span className="material-symbols-outlined text-lg">add</span>
+            Tambah
+          </button>
+        </form>
+      </div>
+    </section>
   );
 }

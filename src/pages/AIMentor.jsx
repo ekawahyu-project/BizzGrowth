@@ -11,7 +11,7 @@ const PRESETS = {
         pelunasan piutang yang lambat dapat menyebabkan arus kas negatif.
         <br />
         <br />
-        <strong>Rekomendasi dari AI Mentor:</strong>
+        <strong>Rekomendasi dari Alpet AI:</strong>
         <br />
         1. <strong>Negosiasi Pembayaran Supplier:</strong> Minta perpanjangan tenggat pembayaran termin supplier dari
         30 hari menjadi 45 hari.
@@ -38,7 +38,7 @@ const PRESETS = {
         sangat dianjurkan.
         <br />
         <br />
-        <strong>Rekomendasi dari AI Mentor:</strong>
+        <strong>Rekomendasi dari Alpet AI:</strong>
         <br />
         1. <strong>Paket Bundling Produk:</strong> Gabungkan produk berputar cepat dengan produk lambat untuk
         menaikkan nilai transaksi rata-rata.
@@ -65,7 +65,7 @@ const PRESETS = {
         berada di skala Mikro, memperluas cabang fisik memiliki risiko tinggi karena modal yang terserap besar.
         <br />
         <br />
-        <strong>Rekomendasi dari AI Mentor:</strong>
+        <strong>Rekomendasi dari Alpet AI:</strong>
         <br />
         1. <strong>Go Marketplace:</strong> Buka channel online di 2 marketplace nasional (Tokopedia/Shopee) untuk
         menguji sebaran wilayah pelanggan potensial.
@@ -212,9 +212,9 @@ export default function AIMentor() {
     <div>
       <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="font-bold text-2xl md:text-3xl text-slate-900 leading-tight">AI Mentor Bisnis</h1>
+          <h1 className="font-bold text-2xl md:text-3xl text-slate-900 leading-tight">Alpet AI</h1>
           <p className="text-slate-500 text-sm mt-1">
-            Konsultasikan strategi, operasional, dan keuangan UMKM Anda secara interaktif.
+            Konsultasikan strategi, operasional, dan keuangan Anda secara interaktif.
           </p>
         </div>
         <div className="flex items-center gap-3 bg-white px-4 py-2 rounded-2xl border border-slate-200/80 shadow-sm self-start md:self-auto">

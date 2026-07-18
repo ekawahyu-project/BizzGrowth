@@ -14,7 +14,7 @@ export default function MobileHeader({ onMenuClick }) {
         </div>
         <div className="leading-tight">
           <p className="font-bold text-slate-900 text-sm">BizGrowth</p>
-          <p className="text-[10px] text-slate-400 font-medium">AI Partner Bisnis UMKM</p>
+          <p className="text-[10px] text-slate-400 font-medium">Partner Bisnis</p>
         </div>
       </div>
       <div className="flex items-center gap-2">

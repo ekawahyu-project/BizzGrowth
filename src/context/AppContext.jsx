@@ -4,7 +4,7 @@ const AppContext = createContext(null);
 
 const DEFAULT_PROFILE = {
   owner: "Eka Wahyu",
-  business: "Kopi Kenangan Rakyat",
+  business: "Cysec ID",
   category: "Makanan & Minuman",
   scale: "Mikro",
   phone: "081234567890",
@@ -17,6 +17,7 @@ const LS_KEYS = {
   salesConnected: "ugrow_sales_connected",
   surveyCompleted: "ugrow_survey_completed",
   invitedFriends: "ugrow_invited_friends",
+  products: "ugrow_products",
   loggedIn: "ugrow_logged_in",
 };
 
@@ -45,6 +46,12 @@ export function AppProvider({ children }) {
   const [invitedFriends, setInvitedFriends] = useState(
     () => parseInt(localStorage.getItem(LS_KEYS.invitedFriends) || "0", 10)
   );
+  const [products, setProducts] = useState(() =>
+    readJSON(LS_KEYS.products, [
+      { id: "p1", name: "Ipong 17 Pro Mag", price: 18000 },
+      { id: "p2", name: "Samsong S50 Ultra Max", price: 15000 },
+    ])
+  );
 
   const [toasts, setToasts] = useState([]);
   const [profileModal, setProfileModal] = useState({ open: false, tab: "profile" });
@@ -64,6 +71,7 @@ export function AppProvider({ children }) {
     () => localStorage.setItem(LS_KEYS.invitedFriends, String(invitedFriends)),
     [invitedFriends]
   );
+  useEffect(() => localStorage.setItem(LS_KEYS.products, JSON.stringify(products)), [products]);
   useEffect(() => localStorage.setItem(LS_KEYS.loggedIn, String(loggedIn)), [loggedIn]);
 
   const showToast = useCallback((message, type = "success") => {
@@ -133,6 +141,18 @@ export function AppProvider({ children }) {
     [coins, deductCoins, showToast]
   );
 
+  const addProduct = useCallback((name, price) => {
+    if (!name || !name.trim()) return;
+    setProducts((prev) => [
+      ...prev,
+      { id: `p${Date.now()}`, name: name.trim(), price: price ? Number(price) : null },
+    ]);
+  }, []);
+
+  const removeProduct = useCallback((id) => {
+    setProducts((prev) => prev.filter((p) => p.id !== id));
+  }, []);
+
   const login = useCallback(() => {
     setLoggedIn(true);
   }, []);
@@ -183,6 +203,9 @@ export function AppProvider({ children }) {
     setSurveyCompleted,
     invitedFriends,
     setInvitedFriends,
+    products,
+    addProduct,
+    removeProduct,
     toasts,
     showToast,
     dismissToast,

@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useApp } from "../context/AppContext";
 import { MAIN_NAV, CONSULT_NAV, ACCOUNT_NAV } from "../nav";
+import ThemeToggle from "./ThemeToggle";
 
 function NavItem({ to, label, icon, onNavigate }) {
   return (
@@ -49,7 +50,7 @@ export default function MobileDrawer({ open, onClose }) {
             </div>
             <div>
               <p className="font-bold text-slate-900 text-base leading-tight">BizGrowth</p>
-              <p className="text-[10px] text-slate-400 font-medium leading-tight">Partner Bisnis</p>
+              <p className="text-[10px] text-slate-400 font-medium leading-tight">AI Partner Bisnis UMKM</p>
             </div>
           </div>
           <button onClick={onClose} className="p-1.5 hover:bg-slate-100 rounded-lg text-slate-400 shrink-0">
@@ -92,7 +93,8 @@ export default function MobileDrawer({ open, onClose }) {
           ))}
         </nav>
 
-        <div className="p-3 border-t border-slate-100 shrink-0">
+        <div className="p-3 border-t border-slate-100 shrink-0 space-y-1">
+          <ThemeToggle />
           <button
             onClick={() => {
               onClose();

@@ -78,7 +78,7 @@ export default function Profil() {
           <h2 className="font-bold text-2xl text-slate-900">{profile.owner || "Eka Wahyu"}</h2>
           <p className="text-slate-500 flex items-center justify-center md:justify-start gap-1.5 mt-0.5">
             <span className="material-symbols-outlined text-primary-600 text-base">storefront</span>
-            <span className="font-medium">{profile.business || "Cysec ID"}</span>
+            <span className="font-medium">{profile.business || "Kopi Kenangan Rakyat"}</span>
           </p>
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mt-3">
             <Badge icon="check_circle" color="tertiary">

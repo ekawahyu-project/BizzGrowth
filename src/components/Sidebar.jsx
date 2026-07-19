@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useApp } from "../context/AppContext";
 import { MAIN_NAV, CONSULT_NAV, ACCOUNT_NAV } from "../nav";
+import ThemeToggle from "./ThemeToggle";
 
 function NavItem({ to, label, icon }) {
   return (
@@ -36,7 +37,7 @@ export default function Sidebar() {
         </div>
         <div>
           <p className="font-bold text-slate-900 text-base leading-tight">BizGrowth</p>
-          <p className="text-[10px] text-slate-400 font-medium leading-tight">Partner Bisnis</p>
+          <p className="text-[10px] text-slate-400 font-medium leading-tight">AI Partner Bisnis UMKM</p>
         </div>
       </div>
 
@@ -72,10 +73,11 @@ export default function Sidebar() {
         ))}
       </nav>
 
-      <div className="p-3 border-t border-slate-100">
+      <div className="p-3 border-t border-slate-100 dark:border-white/10 space-y-1">
+        <ThemeToggle />
         <button
           onClick={openLogoutModal}
-          className="flex items-center gap-3 w-full px-3.5 py-2.5 rounded-xl text-sm font-semibold text-rose-500 hover:bg-rose-50 transition-all text-left"
+          className="flex items-center gap-3 w-full px-3.5 py-2.5 rounded-xl text-sm font-semibold text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-all text-left"
         >
           <span className="material-symbols-outlined text-[20px]">logout</span>
           <span>Keluar</span>

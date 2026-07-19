@@ -5,6 +5,6 @@ export const MAIN_NAV = [
   { to: "/ekspansi", label: "Ekspansi Pasar", icon: "public" },
 ];
 
-export const CONSULT_NAV = [{ to: "/mentor", label: "Alpet AI", icon: "smart_toy" }];
+export const CONSULT_NAV = [{ to: "/mentor", label: "AI Business Mentor", icon: "smart_toy" }];
 
 export const ACCOUNT_NAV = [{ to: "/profil", label: "Profil & Pengaturan", icon: "account_circle" }];

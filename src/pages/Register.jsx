@@ -30,7 +30,7 @@ export default function Register() {
             <img src="/logo.png" alt="BizGrowth Logo" className="w-full h-full object-contain" />
           </div>
           <h2 className="font-bold text-2xl text-slate-850">Buat Akun Baru</h2>
-          <p className="text-xs text-slate-500 mt-1">Pusat Simulasi Keputusan &amp; Konsultasi AI Bisnis</p>
+          <p className="text-xs text-slate-500 mt-1">Pusat Simulasi Keputusan &amp; Konsultasi AI Bisnis UMKM</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -57,7 +57,7 @@ export default function Register() {
               value={business}
               onChange={(e) => setBusiness(e.target.value)}
               className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-sm text-slate-800 transition-all"
-              placeholder="Cysec ID"
+              placeholder="Kopi Kenangan Rakyat"
             />
           </div>
           <div>

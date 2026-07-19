@@ -116,7 +116,7 @@ export default function Ekspansi() {
             </div>
             <div>
               <p className="text-xs text-slate-400">Produk Anda</p>
-              <p className="font-bold text-slate-800">{profile.business || "Cysec ID"}</p>
+              <p className="font-bold text-slate-800">{profile.business || "Kopi Kenangan Rakyat"}</p>
             </div>
           </div>
 

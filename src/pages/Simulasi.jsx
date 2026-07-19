@@ -261,7 +261,7 @@ export default function Simulasi() {
                 label="Nama Produk"
                 value={namaProduk}
                 onChange={setNamaProduk}
-                placeholder="Contoh: Ipong 17 Pro Mag"
+                placeholder="Contoh: Kopi Susu Gula Aren"
               />
             </div>
 

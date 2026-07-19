@@ -157,7 +157,7 @@ export default function ProfileModal() {
                   value={form.business || ""}
                   onChange={(e) => setForm({ ...form, business: e.target.value })}
                   className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-sm text-slate-800 transition-all"
-                  placeholder="Cysec ID"
+                  placeholder="Kopi Kenangan Rakyat"
                 />
               </div>
 

@@ -26,7 +26,7 @@ navigasi bergaya aplikasi native (back-arrow per halaman).
 | `/simulasi` | Simulator (alur: daftar → atur parameter → hasil) |
 | `/insight` | Optimasi Keuangan: skor kesehatan, ringkasan, proyeksi 5 tahun |
 | `/ekspansi` | Kesiapan Pasar Global: skor ekspor + negara potensial |
-| `/mentor` | Alpet AI (chat) |
+| `/mentor` | AI Business Mentor (chat) |
 | `/profil` | Profil, dompet koin, pengaturan akun |
 
 ## Model Bisnis Koin
@@ -40,3 +40,24 @@ navigasi bergaya aplikasi native (back-arrow per halaman).
 | Lihat Analisis Lengkap Ekspor | 2 Koin |
 
 Top-up: 1/Rp10rb, 3/Rp29rb, 5/Rp45rb, 10/Rp90rb, 20/Rp180rb, 50/Rp450rb (`src/components/modals/ProfileModal.jsx`).
+
+## Menjalankan Secara Lokal
+
+```bash
+npm install
+npm run dev
+```
+
+Buka `http://localhost:5173`.
+
+## Build Produksi
+
+```bash
+npm run build
+```
+
+## Catatan Gambar
+
+Halaman Simulasi memakai `public/BukaCabang.jpg`, `public/EkspansiMarketplace.jpg`,
+`public/EksporGlobal.jpg` — pastikan file-file ini ada (nama harus persis sama) sebelum
+menjalankan `npm run dev`/`npm run build`.

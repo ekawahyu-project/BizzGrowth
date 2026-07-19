@@ -212,3 +212,180 @@ body {
   50% { transform: translateY(-4px); }
 }
 .float-soft { animation: float-soft 4s ease-in-out infinite; }
+
+/* ============================================================
+   DARK MODE
+   Applied via a `.dark` class on <html>. Rather than sprinkling
+   `dark:` variants across every page, we override the same
+   Tailwind utility classes globally once here — since the whole
+   app consistently reuses the same small palette, this covers
+   every page without touching individual components.
+   ============================================================ */
+
+.dark body {
+  background-color: #0f172a;
+  color: #e2e8f0;
+}
+
+.dark .bg-aurora {
+  background: #0f172a;
+}
+.dark .bg-aurora::before,
+.dark .bg-aurora::after,
+.dark .bg-aurora .blob {
+  opacity: 0.14;
+}
+
+/* Card & modal surfaces */
+.dark .premium-card {
+  background: #1e293b;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 2px 10px -2px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+.dark .premium-card:hover {
+  border-color: rgba(139, 110, 230, 0.4);
+  box-shadow: 0 12px 28px -8px rgba(103, 61, 205, 0.3);
+}
+.dark .glass-modal {
+  background: #1e293b;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+.dark .glass-chip {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* White surfaces (sidebar, headers, drawer, inputs) */
+.dark .bg-white,
+.dark .bg-white\/85,
+.dark .bg-white\/80,
+.dark .bg-white\/90 {
+  background-color: #1e293b !important;
+}
+
+/* Text colors */
+.dark .text-slate-950,
+.dark .text-slate-900,
+.dark .text-slate-850,
+.dark .text-slate-800 {
+  color: #f1f5f9 !important;
+}
+.dark .text-slate-700 {
+  color: #cbd5e1 !important;
+}
+.dark .text-slate-600,
+.dark .text-slate-650 {
+  color: #b0bcce !important;
+}
+.dark .text-slate-500 {
+  color: #94a3b8 !important;
+}
+.dark .text-slate-400,
+.dark .text-slate-450 {
+  color: #7c8aa0 !important;
+}
+.dark .text-slate-300 {
+  color: #64748b !important;
+}
+
+/* Neutral backgrounds (light greys -> soft dark greys) */
+.dark .bg-slate-50,
+.dark .bg-slate-50\/30,
+.dark .bg-slate-50\/40,
+.dark .bg-slate-50\/50,
+.dark .bg-slate-50\/70 {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+}
+.dark .bg-slate-100 {
+  background-color: rgba(255, 255, 255, 0.07) !important;
+}
+.dark .bg-slate-200,
+.dark .bg-slate-200\/60 {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+.dark .bg-slate-900 {
+  background-color: #0b1322 !important;
+}
+
+/* Borders */
+.dark .border-slate-100,
+.dark .border-slate-150 {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+.dark .border-slate-200,
+.dark .border-slate-200\/60,
+.dark .border-slate-200\/70,
+.dark .border-slate-200\/80,
+.dark .border-slate-200\/85 {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+.dark .border-slate-300 {
+  border-color: rgba(255, 255, 255, 0.16) !important;
+}
+.dark .divide-slate-100 > :not([hidden]) ~ :not([hidden]) {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Soft tint backgrounds used for badges/status pills */
+.dark .bg-amber-50 { background-color: rgba(245, 158, 11, 0.12) !important; }
+.dark .bg-amber-100 { background-color: rgba(245, 158, 11, 0.18) !important; }
+.dark .bg-rose-50, .dark .bg-rose-50\/40, .dark .bg-rose-50\/80 { background-color: rgba(244, 63, 94, 0.12) !important; }
+.dark .bg-rose-100 { background-color: rgba(244, 63, 94, 0.18) !important; }
+.dark .bg-tertiary-100, .dark .bg-tertiary-50\/40 { background-color: rgba(0, 106, 59, 0.22) !important; }
+.dark .bg-primary-50, .dark .bg-primary-50\/50 { background-color: rgba(103, 61, 205, 0.16) !important; }
+.dark .bg-primary-100 { background-color: rgba(103, 61, 205, 0.22) !important; }
+.dark .bg-secondary-100 { background-color: rgba(47, 85, 200, 0.2) !important; }
+
+/* Form controls */
+.dark input,
+.dark select,
+.dark textarea {
+  background-color: transparent;
+  color: #e2e8f0;
+}
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #64748b;
+}
+.dark .custom-slider {
+  background: linear-gradient(to right, #8a5ce8 var(--progress, 50%), rgba(255, 255, 255, 0.12) var(--progress, 50%));
+}
+
+/* Scrollbar */
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(139, 110, 230, 0.35);
+}
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 110, 230, 0.55);
+}
+
+/* Theme toggle switch */
+.theme-toggle {
+  width: 44px;
+  height: 24px;
+  border-radius: 9999px;
+  background: #e2e8f0;
+  position: relative;
+  transition: background 0.25s ease;
+  flex-shrink: 0;
+}
+.dark .theme-toggle {
+  background: #673dcd;
+}
+.theme-toggle .knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dark .theme-toggle .knob {
+  transform: translateX(20px);
+}

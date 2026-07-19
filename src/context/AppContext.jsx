@@ -4,7 +4,7 @@ const AppContext = createContext(null);
 
 const DEFAULT_PROFILE = {
   owner: "Eka Wahyu",
-  business: "Cysec ID",
+  business: "Kopi Kenangan Rakyat",
   category: "Makanan & Minuman",
   scale: "Mikro",
   phone: "081234567890",
@@ -18,6 +18,7 @@ const LS_KEYS = {
   surveyCompleted: "ugrow_survey_completed",
   invitedFriends: "ugrow_invited_friends",
   products: "ugrow_products",
+  darkMode: "ugrow_dark_mode",
   loggedIn: "ugrow_logged_in",
 };
 
@@ -32,6 +33,11 @@ function readJSON(key, fallback) {
 
 export function AppProvider({ children }) {
   const [loggedIn, setLoggedIn] = useState(() => localStorage.getItem(LS_KEYS.loggedIn) === "true");
+  const [darkMode, setDarkMode] = useState(() => {
+    const stored = localStorage.getItem(LS_KEYS.darkMode);
+    if (stored !== null) return stored === "true";
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  });
   const [coins, setCoins] = useState(() => parseInt(localStorage.getItem(LS_KEYS.coins) || "3", 10));
   const [profile, setProfile] = useState(() => readJSON(LS_KEYS.profile, DEFAULT_PROFILE));
   const [profileCompleted, setProfileCompleted] = useState(
@@ -48,8 +54,8 @@ export function AppProvider({ children }) {
   );
   const [products, setProducts] = useState(() =>
     readJSON(LS_KEYS.products, [
-      { id: "p1", name: "Ipong 17 Pro Mag", price: 18000 },
-      { id: "p2", name: "Samsong S50 Ultra Max", price: 15000 },
+      { id: "p1", name: "Kopi Susu Gula Aren", price: 18000 },
+      { id: "p2", name: "Roti Bakar Cokelat", price: 15000 },
     ])
   );
 
@@ -73,6 +79,10 @@ export function AppProvider({ children }) {
   );
   useEffect(() => localStorage.setItem(LS_KEYS.products, JSON.stringify(products)), [products]);
   useEffect(() => localStorage.setItem(LS_KEYS.loggedIn, String(loggedIn)), [loggedIn]);
+  useEffect(() => {
+    localStorage.setItem(LS_KEYS.darkMode, String(darkMode));
+    document.documentElement.classList.toggle("dark", darkMode);
+  }, [darkMode]);
 
   const showToast = useCallback((message, type = "success") => {
     const id = Date.now() + Math.random();
@@ -191,6 +201,8 @@ export function AppProvider({ children }) {
     login,
     register,
     logout,
+    darkMode,
+    toggleDarkMode: () => setDarkMode((v) => !v),
     coins,
     addCoins,
     deductCoins,

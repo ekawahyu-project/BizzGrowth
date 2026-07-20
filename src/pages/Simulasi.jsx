@@ -24,9 +24,9 @@ const PROMO_OPTIONS = [
 ];
 
 function getSimCost(channelType) {
-  if (!channelType) return 0;
-  if (channelType === "ekspor") return 2;
-  return 1;
+  if (!channelType) return 1; // Sederhana
+  if (channelType === "ekspor") return 5; // Ekspor Global
+  return 3; // Ekspansi
 }
 
 function toNum(v) {

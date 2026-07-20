@@ -2,12 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useApp } from "../context/AppContext";
 
-const EARN_TASKS = [
-  { icon: "person_add", title: "Bonus Pengguna Baru", reward: "+3 Koin" },
-  { icon: "badge", title: "Lengkapi Profil", reward: "+1 Koin" },
-  { icon: "database", title: "Hubungkan Data Penjualan", reward: "+1 Koin" },
-  { icon: "group", title: "Undang Teman UMKM", reward: "+2 Koin / teman" },
-];
+const EARN_TASKS = [{ icon: "group", title: "Undang Teman UMKM", reward: "+2 Koin / teman" }];
 
 const SETTINGS_ROWS = [
   {

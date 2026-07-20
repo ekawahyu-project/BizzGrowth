@@ -110,7 +110,7 @@ function ChatBubble({ sender, children }) {
 }
 
 export default function AIMentor() {
-  const { showToast } = useApp();
+  const { showToast, tokens, useToken, buyTokens } = useApp();
   const [messages, setMessages] = useState([
     {
       sender: "ai",
@@ -163,6 +163,7 @@ export default function AIMentor() {
   }
 
   function sendPreset(id) {
+    if (!useToken()) return;
     setMessages((prev) => [...prev, { sender: "user", content: <p>{PRESETS[id].query}</p> }]);
     respond(PRESETS[id].query, id);
   }
@@ -171,6 +172,7 @@ export default function AIMentor() {
     e.preventDefault();
     const text = input.trim();
     if (!text) return;
+    if (!useToken()) return;
     setMessages((prev) => [...prev, { sender: "user", content: <p>{text}</p> }]);
     setInput("");
     respond(text, null);
@@ -217,14 +219,47 @@ export default function AIMentor() {
             Konsultasikan strategi, operasional, dan keuangan UMKM Anda secara interaktif.
           </p>
         </div>
-        <div className="flex items-center gap-3 bg-white px-4 py-2 rounded-2xl border border-slate-200/80 shadow-sm self-start md:self-auto">
-          <div className="w-2.5 h-2.5 bg-primary-500 rounded-full animate-pulse" />
-          <div className="text-left">
-            <p className="text-xs font-bold text-slate-800">Alpet AI</p>
-            <p className="text-xs text-slate-400 font-medium">Konsultan Virtual • Aktif</p>
+        <div className="flex items-center gap-3">
+          <div
+            className={`flex items-center gap-1.5 px-3 py-2 rounded-2xl border shadow-sm text-xs font-bold ${
+              tokens > 0
+                ? "bg-primary-50 border-primary-200 text-primary-700"
+                : "bg-rose-50 border-rose-200 text-rose-600"
+            }`}
+          >
+            <span className="material-symbols-outlined text-sm icon-fill">bolt</span>
+            {tokens} Token
+          </div>
+          <div className="flex items-center gap-3 bg-white px-4 py-2 rounded-2xl border border-slate-200/80 shadow-sm self-start md:self-auto">
+            <div className="w-2.5 h-2.5 bg-primary-500 rounded-full animate-pulse" />
+            <div className="text-left">
+              <p className="text-xs font-bold text-slate-800">Alpet AI</p>
+              <p className="text-xs text-slate-400 font-medium">Konsultan Virtual • Aktif</p>
+            </div>
           </div>
         </div>
       </div>
+
+      {tokens <= 0 && (
+        <div className="mb-6 bg-rose-50 border border-rose-200 rounded-2xl p-4 flex items-center justify-between gap-4 flex-wrap">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-rose-100 flex items-center justify-center shrink-0">
+              <span className="material-symbols-outlined text-rose-600 icon-fill">bolt</span>
+            </div>
+            <div>
+              <p className="font-bold text-rose-700 text-sm">Token Habis</p>
+              <p className="text-xs text-rose-600">Tukar koin untuk lanjut chat dengan AI Mentor.</p>
+            </div>
+          </div>
+          <button
+            onClick={buyTokens}
+            className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all shrink-0 flex items-center gap-1.5"
+          >
+            <span className="material-symbols-outlined text-sm icon-fill">payments</span>
+            Tukar 1 Koin = 5 Token
+          </button>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
         {/* Chat window */}
@@ -237,7 +272,7 @@ export default function AIMentor() {
               <div>
                 <h3 className="font-bold text-slate-850 text-base">Konsultasi Virtual</h3>
                 <p className="text-xs font-semibold text-primary-600 uppercase tracking-wider">
-                  Tersedia Kapan Saja • Gratis
+                  Tersedia Kapan Saja • 1 Token / Chat
                 </p>
               </div>
             </div>
@@ -275,7 +310,8 @@ export default function AIMentor() {
               <button
                 key={id}
                 onClick={() => sendPreset(id)}
-                className="px-4 py-2.5 bg-white hover:bg-primary-50 hover:border-primary-300 text-slate-700 hover:text-primary-700 border border-slate-200 rounded-xl text-sm font-semibold whitespace-nowrap transition-all shadow-sm"
+                disabled={tokens <= 0}
+                className="px-4 py-2.5 bg-white hover:bg-primary-50 hover:border-primary-300 text-slate-700 hover:text-primary-700 border border-slate-200 rounded-xl text-sm font-semibold whitespace-nowrap transition-all shadow-sm disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 {p.label}
               </button>
@@ -289,13 +325,15 @@ export default function AIMentor() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 autoComplete="off"
-                placeholder="Tanyakan saran bisnis di sini..."
-                className="w-full pl-4 pr-10 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-sm text-slate-850 transition-all"
+                disabled={tokens <= 0}
+                placeholder={tokens <= 0 ? "Token habis — tukar koin dulu untuk lanjut chat" : "Tanyakan saran bisnis di sini..."}
+                className="w-full pl-4 pr-10 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-sm text-slate-850 transition-all disabled:bg-slate-50 disabled:text-slate-400"
               />
             </div>
             <button
               type="submit"
-              className="bg-primary-600 hover:bg-primary-700 active:scale-95 text-white w-12 h-12 rounded-xl flex items-center justify-center transition-all shadow-md shadow-primary-600/15 shrink-0"
+              disabled={tokens <= 0}
+              className="bg-primary-600 hover:bg-primary-700 active:scale-95 text-white w-12 h-12 rounded-xl flex items-center justify-center transition-all shadow-md shadow-primary-600/15 shrink-0 disabled:opacity-40 disabled:cursor-not-allowed"
             >
               <span className="material-symbols-outlined text-lg">send</span>
             </button>

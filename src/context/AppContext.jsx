@@ -19,6 +19,7 @@ const LS_KEYS = {
   invitedFriends: "ugrow_invited_friends",
   products: "ugrow_products",
   darkMode: "ugrow_dark_mode",
+  tokens: "ugrow_tokens",
   loggedIn: "ugrow_logged_in",
 };
 
@@ -38,6 +39,7 @@ export function AppProvider({ children }) {
     if (stored !== null) return stored === "true";
     return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
   });
+  const [tokens, setTokens] = useState(() => parseInt(localStorage.getItem(LS_KEYS.tokens) || "5", 10));
   const [coins, setCoins] = useState(() => parseInt(localStorage.getItem(LS_KEYS.coins) || "3", 10));
   const [profile, setProfile] = useState(() => readJSON(LS_KEYS.profile, DEFAULT_PROFILE));
   const [profileCompleted, setProfileCompleted] = useState(
@@ -83,6 +85,7 @@ export function AppProvider({ children }) {
     localStorage.setItem(LS_KEYS.darkMode, String(darkMode));
     document.documentElement.classList.toggle("dark", darkMode);
   }, [darkMode]);
+  useEffect(() => localStorage.setItem(LS_KEYS.tokens, String(tokens)), [tokens]);
 
   const showToast = useCallback((message, type = "success") => {
     const id = Date.now() + Math.random();
@@ -151,6 +154,32 @@ export function AppProvider({ children }) {
     [coins, deductCoins, showToast]
   );
 
+  // Consumes 1 token for an AI Mentor chat message. Returns true if a
+  // token was available and spent, false if the user is out of tokens.
+  const useToken = useCallback(() => {
+    let ok = false;
+    setTokens((t) => {
+      if (t > 0) {
+        ok = true;
+        return t - 1;
+      }
+      return t;
+    });
+    return ok;
+  }, []);
+
+  // Exchanges 1 Koin for 5 chat tokens.
+  const buyTokens = useCallback(() => {
+    if (coins < 1) {
+      setInsufficientModal({ open: true, cost: 1 });
+      return false;
+    }
+    setCoins((c) => c - 1);
+    setTokens((t) => t + 5);
+    showToast("+5 Token AI Mentor (ditukar 1 Koin)", "success");
+    return true;
+  }, [coins, showToast]);
+
   const addProduct = useCallback((name, price) => {
     if (!name || !name.trim()) return;
     setProducts((prev) => [
@@ -218,6 +247,9 @@ export function AppProvider({ children }) {
     products,
     addProduct,
     removeProduct,
+    tokens,
+    useToken,
+    buyTokens,
     toasts,
     showToast,
     dismissToast,

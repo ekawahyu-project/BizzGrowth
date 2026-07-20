@@ -25,37 +25,6 @@ const COIN_BUNDLES = [
   { coins: 50, price: "Rp 229.000" },
 ];
 
-function Mission({ icon, title, desc, reward, actionLabel, onAction, done }) {
-  return (
-    <div className="flex items-center justify-between p-3.5 bg-slate-50 border border-slate-100 rounded-xl">
-      <div className="flex gap-3">
-        <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
-          <span className="material-symbols-outlined icon-fill">{icon}</span>
-        </div>
-        <div>
-          <p className="font-bold text-xs text-slate-800">{title}</p>
-          <p className="text-[10px] text-slate-500">{desc}</p>
-        </div>
-      </div>
-      <div className="flex items-center gap-3">
-        <span className="text-xs font-bold text-amber-600 font-mono">{reward}</span>
-        {done ? (
-          <span className="px-4 py-1.5 bg-primary-100 text-primary-700 rounded-full text-xs font-semibold">
-            Selesai
-          </span>
-        ) : (
-          <button
-            onClick={onAction}
-            className="px-4 py-1.5 bg-primary-600 hover:bg-primary-700 text-white rounded-full text-xs font-semibold shadow-sm transition-all"
-          >
-            {actionLabel}
-          </button>
-        )}
-      </div>
-    </div>
-  );
-}
-
 export default function ProfileModal() {
   const {
     profileModal,
@@ -64,9 +33,6 @@ export default function ProfileModal() {
     profile,
     saveProfile,
     coins,
-    profileCompleted,
-    salesConnected,
-    setSalesConnected,
     invitedFriends,
     setInvitedFriends,
     addCoins,
@@ -86,12 +52,6 @@ export default function ProfileModal() {
     e.preventDefault();
     saveProfile(form);
     closeProfileModal();
-  }
-
-  function handleConnectSales() {
-    if (salesConnected) return;
-    setSalesConnected(true);
-    addCoins(1, "Menghubungkan Data Penjualan");
   }
 
   function handleInvite() {
@@ -239,27 +199,9 @@ export default function ProfileModal() {
 
               <div>
                 <h4 className="font-bold text-slate-850 text-sm uppercase tracking-wider mb-3">
-                  Dapatkan Koin Gratis (Misi Harian)
+                  Dapatkan Koin Gratis
                 </h4>
                 <div className="space-y-3">
-                  <Mission
-                    icon="contact_page"
-                    title="Lengkapi Profil Bisnis"
-                    desc="Membantu memberikan akurasi simulasi"
-                    reward="+1 Koin"
-                    actionLabel="Lengkapi"
-                    onAction={() => switchProfileTab("profile")}
-                    done={profileCompleted}
-                  />
-                  <Mission
-                    icon="sync_alt"
-                    title="Hubungkan Laporan Keuangan"
-                    desc="Sambungkan file Excel atau pembukuan"
-                    reward="+1 Koin"
-                    actionLabel="Sambungkan"
-                    onAction={handleConnectSales}
-                    done={salesConnected}
-                  />
                   <div className="flex items-center justify-between p-3.5 bg-slate-50 border border-slate-100 rounded-xl">
                     <div className="flex gap-3">
                       <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">

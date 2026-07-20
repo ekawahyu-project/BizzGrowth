@@ -389,3 +389,88 @@ body {
 .dark .theme-toggle .knob {
   transform: translateX(20px);
 }
+
+/* ------------------------------------------------------------
+   DARK MODE — ROUND 2: hover/focus variants + accent readability
+   The base-class overrides above don't reach `hover:*` classes
+   because Tailwind compiles those as distinct selectors
+   (e.g. `.hover\:bg-slate-50:hover`), so they need their own
+   overrides. This also brightens accent text colors (primary/
+   tertiary/amber/rose) which were too dark to read against the
+   translucent dark badge backgrounds.
+   ------------------------------------------------------------ */
+
+/* Brighter accent text so badges/links/icons stay legible on dark surfaces */
+.dark .text-primary-500 { color: #a37ef0 !important; }
+.dark .text-primary-600 { color: #b294f2 !important; }
+.dark .text-primary-700 { color: #c7aef5 !important; }
+.dark .text-secondary-600 { color: #93a5f5 !important; }
+.dark .text-tertiary-600 { color: #4ade80 !important; }
+.dark .text-tertiary-700 { color: #6ee7a0 !important; }
+.dark .text-amber-500 { color: #fbbf24 !important; }
+.dark .text-amber-600 { color: #fbbf24 !important; }
+.dark .text-amber-700 { color: #fcd34d !important; }
+.dark .text-amber-800 { color: #fde68a !important; }
+.dark .text-amber-900 { color: #fef3c7 !important; }
+.dark .text-rose-500 { color: #fb7185 !important; }
+.dark .text-rose-600 { color: #fda4af !important; }
+.dark .text-rose-700 { color: #fecdd3 !important; }
+.dark .text-rose-900 { color: #ffe4e6 !important; }
+
+/* Hover backgrounds */
+.dark .hover\:bg-slate-50:hover,
+.dark .hover\:bg-slate-50\/70:hover { background-color: rgba(255, 255, 255, 0.06) !important; }
+.dark .hover\:bg-slate-100:hover { background-color: rgba(255, 255, 255, 0.08) !important; }
+.dark .hover\:bg-slate-200:hover,
+.dark .hover\:bg-slate-200\/60:hover { background-color: rgba(255, 255, 255, 0.12) !important; }
+.dark .hover\:bg-slate-800:hover { background-color: #334155 !important; }
+
+.dark .hover\:bg-primary-50:hover,
+.dark .hover\:bg-primary-50\/50:hover,
+.dark .hover\:bg-primary-500\/10:hover { background-color: rgba(103, 61, 205, 0.25) !important; }
+.dark .hover\:bg-primary-700:hover { background-color: #5120b7 !important; }
+
+.dark .hover\:bg-rose-50:hover,
+.dark .hover\:bg-rose-50\/80:hover,
+.dark .hover\:bg-rose-500\/10:hover { background-color: rgba(244, 63, 94, 0.18) !important; }
+.dark .hover\:bg-rose-700:hover { background-color: #be123c !important; }
+
+.dark .hover\:bg-amber-50:hover { background-color: rgba(245, 158, 11, 0.18) !important; }
+.dark .hover\:bg-amber-100:hover { background-color: rgba(245, 158, 11, 0.25) !important; }
+.dark .hover\:bg-amber-300:hover { background-color: #fbbf24 !important; }
+.dark .hover\:bg-amber-600:hover { background-color: #d97706 !important; }
+
+/* Hover text/border */
+.dark .hover\:text-primary-700:hover { color: #d7c5f8 !important; }
+.dark .hover\:text-rose-500:hover { color: #fda4af !important; }
+.dark .hover\:text-slate-500:hover,
+.dark .hover\:text-slate-600:hover { color: #e2e8f0 !important; }
+.dark .hover\:text-white:hover { color: #f8fafc !important; }
+.dark .hover\:border-primary-200:hover { border-color: rgba(139, 110, 230, 0.5) !important; }
+.dark .hover\:border-primary-300:hover { border-color: rgba(162, 138, 235, 0.6) !important; }
+.dark .hover\:border-primary-400:hover { border-color: rgba(180, 160, 240, 0.7) !important; }
+
+/* Decorative gradients (illustration boxes, hero banners) using from-/to-/via- */
+.dark .from-primary-100 { --tw-gradient-from: rgba(103, 61, 205, 0.25) var(--tw-gradient-from-position); }
+.dark .to-primary-50 { --tw-gradient-to: rgba(103, 61, 205, 0.08) var(--tw-gradient-to-position); }
+.dark .from-amber-100 { --tw-gradient-from: rgba(245, 158, 11, 0.2) var(--tw-gradient-from-position); }
+.dark .to-amber-50 { --tw-gradient-to: rgba(245, 158, 11, 0.08) var(--tw-gradient-to-position); }
+
+/* Selected/active option borders (e.g. chosen strategy cards) need a brighter fill for contrast */
+.dark .border-primary-600.bg-primary-50,
+.dark .border-primary-600 .bg-primary-50 {
+  background-color: rgba(103, 61, 205, 0.28) !important;
+}
+
+/* Static (non-hover) primary/tertiary/rose/amber borders — used on outline buttons & selected cards */
+.dark .border-primary-100 { border-color: rgba(103, 61, 205, 0.3) !important; }
+.dark .border-primary-200 { border-color: rgba(139, 110, 230, 0.4) !important; }
+.dark .border-primary-300 { border-color: rgba(162, 138, 235, 0.5) !important; }
+.dark .border-primary-400\/60 { border-color: rgba(162, 138, 235, 0.5) !important; }
+.dark .border-tertiary-200,
+.dark .border-tertiary-200\/60 { border-color: rgba(74, 222, 128, 0.35) !important; }
+.dark .border-rose-200,
+.dark .border-rose-200\/80 { border-color: rgba(251, 113, 133, 0.3) !important; }
+.dark .border-amber-200,
+.dark .border-amber-200\/60,
+.dark .border-amber-200\/70 { border-color: rgba(251, 191, 36, 0.35) !important; }

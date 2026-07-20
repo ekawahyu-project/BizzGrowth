@@ -18,7 +18,7 @@ export default function LogoutModal() {
         </div>
         <h3 className="font-bold text-slate-800 text-lg">Keluar dari Akun?</h3>
         <p className="text-sm text-slate-500 mt-1">
-          Anda harus masuk kembali untuk menguji simulasi dan berkonsultasi dengan AI Mentor.
+          Anda harus masuk kembali untuk menguji simulasi dan berkonsultasi dengan Alpet AI.
         </p>
         <div className="grid grid-cols-2 gap-3 mt-6">
           <button

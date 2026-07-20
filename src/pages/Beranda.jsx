@@ -31,7 +31,7 @@ export default function Beranda() {
               <span className="material-symbols-outlined text-white icon-fill text-lg">smart_toy</span>
             </div>
             <div className="flex-1">
-              <p className="text-sm font-bold text-white">AI Mentor</p>
+              <p className="text-sm font-bold text-white">Alpet AI</p>
               <p className="text-xs text-white/80">Tanya apa saja tentang bisnismu</p>
             </div>
             <span className="material-symbols-outlined text-white group-hover:translate-x-1 transition-transform">

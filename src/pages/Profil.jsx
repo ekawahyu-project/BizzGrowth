@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useApp } from "../context/AppContext";
 
-const EARN_TASKS = [{ icon: "group", title: "Undang Teman UMKM", reward: "+2 Koin / teman" }];
+const EARN_TASKS = [{ icon: "group", title: "Undang Teman", reward: "+2 Koin / teman" }];
 
 const SETTINGS_ROWS = [
   {
@@ -43,7 +43,7 @@ export default function Profil() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="font-bold text-2xl md:text-3xl text-slate-900 leading-tight">Profil & Pengaturan</h1>
+        <h1 className="font-bold text-2xl md:text-3xl text-slate-900 leading-tight">Profil</h1>
         <p className="text-slate-500 text-sm mt-1">Kelola informasi bisnis, koin, dan preferensi akun Anda.</p>
       </div>
 
@@ -73,7 +73,7 @@ export default function Profil() {
           <h2 className="font-bold text-2xl text-slate-900">{profile.owner || "Eka Wahyu"}</h2>
           <p className="text-slate-500 flex items-center justify-center md:justify-start gap-1.5 mt-0.5">
             <span className="material-symbols-outlined text-primary-600 text-base">storefront</span>
-            <span className="font-medium">{profile.business || "Kopi Kenangan Rakyat"}</span>
+            <span className="font-medium">{profile.business || "KPC"}</span>
           </p>
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mt-3">
             <Badge icon="check_circle" color="tertiary">
@@ -294,7 +294,7 @@ function ProductManager() {
         <div>
           <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest">Manajemen Produk</h3>
           <p className="text-[11px] text-slate-400 mt-0.5">
-            Semua produk UMKM Anda — nanti bisa dipilih langsung saat mengatur strategi promosi/bundling di Simulasi.
+            Semua produk Anda nanti bisa dipilih langsung saat mengatur strategi promosi atau bundling di Simulasi.
           </p>
         </div>
       </div>

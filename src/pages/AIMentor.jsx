@@ -11,7 +11,7 @@ const PRESETS = {
         pelunasan piutang yang lambat dapat menyebabkan arus kas negatif.
         <br />
         <br />
-        <strong>Rekomendasi dari AI Mentor:</strong>
+        <strong>Rekomendasi dari Alpet AI:</strong>
         <br />
         1. <strong>Negosiasi Pembayaran Supplier:</strong> Minta perpanjangan tenggat pembayaran termin supplier dari
         30 hari menjadi 45 hari.
@@ -38,7 +38,7 @@ const PRESETS = {
         sangat dianjurkan.
         <br />
         <br />
-        <strong>Rekomendasi dari AI Mentor:</strong>
+        <strong>Rekomendasi dari Alpet AI:</strong>
         <br />
         1. <strong>Paket Bundling Produk:</strong> Gabungkan produk berputar cepat dengan produk lambat untuk
         menaikkan nilai transaksi rata-rata.
@@ -65,7 +65,7 @@ const PRESETS = {
         berada di skala Mikro, memperluas cabang fisik memiliki risiko tinggi karena modal yang terserap besar.
         <br />
         <br />
-        <strong>Rekomendasi dari AI Mentor:</strong>
+        <strong>Rekomendasi dari Alpet AI:</strong>
         <br />
         1. <strong>Go Marketplace:</strong> Buka channel online di 2 marketplace nasional (Tokopedia/Shopee) untuk
         menguji sebaran wilayah pelanggan potensial.
@@ -216,7 +216,7 @@ export default function AIMentor() {
         <div>
           <h1 className="font-bold text-2xl md:text-3xl text-slate-900 leading-tight">AI Mentor Bisnis</h1>
           <p className="text-slate-500 text-sm mt-1">
-            Konsultasikan strategi, operasional, dan keuangan UMKM Anda secara interaktif.
+            Konsultasikan strategi, operasional, dan keuangan Anda secara interaktif.
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -248,7 +248,7 @@ export default function AIMentor() {
             </div>
             <div>
               <p className="font-bold text-rose-700 text-sm">Token Habis</p>
-              <p className="text-xs text-rose-600">Tukar koin untuk lanjut chat dengan AI Mentor.</p>
+              <p className="text-xs text-rose-600">Tukar koin untuk lanjut chat dengan Alpet AI.</p>
             </div>
           </div>
           <button
@@ -272,7 +272,7 @@ export default function AIMentor() {
               <div>
                 <h3 className="font-bold text-slate-850 text-base">Konsultasi Virtual</h3>
                 <p className="text-xs font-semibold text-primary-600 uppercase tracking-wider">
-                  Tersedia Kapan Saja • 1 Token / Chat
+                  Tersedia Kapan Saja
                 </p>
               </div>
             </div>

@@ -56,7 +56,7 @@ export default function ProfileModal() {
 
   function handleInvite() {
     setInvitedFriends((n) => n + 1);
-    addCoins(2, "Undang Teman UMKM");
+    addCoins(2, "Undang Teman");
   }
 
   return (
@@ -117,7 +117,7 @@ export default function ProfileModal() {
                   value={form.business || ""}
                   onChange={(e) => setForm({ ...form, business: e.target.value })}
                   className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-sm text-slate-800 transition-all"
-                  placeholder="Kopi Kenangan Rakyat"
+                  placeholder="KPC"
                 />
               </div>
 
@@ -208,7 +208,7 @@ export default function ProfileModal() {
                         <span className="material-symbols-outlined icon-fill">group_add</span>
                       </div>
                       <div>
-                        <p className="font-bold text-xs text-slate-800">Undang Teman UMKM</p>
+                        <p className="font-bold text-xs text-slate-800">Undang Teman</p>
                         <p className="text-[10px] text-slate-500">Berhasil mendaftar di BizGrowth</p>
                       </div>
                     </div>

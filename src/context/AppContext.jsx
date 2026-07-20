@@ -4,7 +4,7 @@ const AppContext = createContext(null);
 
 const DEFAULT_PROFILE = {
   owner: "Eka Wahyu",
-  business: "Kopi Kenangan Rakyat",
+  business: "KPC",
   category: "Makanan & Minuman",
   scale: "Mikro",
   phone: "081234567890",
@@ -56,8 +56,9 @@ export function AppProvider({ children }) {
   );
   const [products, setProducts] = useState(() =>
     readJSON(LS_KEYS.products, [
-      { id: "p1", name: "Kopi Susu Gula Aren", price: 18000 },
-      { id: "p2", name: "Roti Bakar Cokelat", price: 15000 },
+      { id: "p1", name: "Pizza", price: 18000 },
+      { id: "p2", name: "Hamburger", price: 15000 },
+      { id: "p2", name: "Es Milo", price: 8000 },
     ])
   );
 
@@ -157,16 +158,10 @@ export function AppProvider({ children }) {
   // Consumes 1 token for an AI Mentor chat message. Returns true if a
   // token was available and spent, false if the user is out of tokens.
   const useToken = useCallback(() => {
-    let ok = false;
-    setTokens((t) => {
-      if (t > 0) {
-        ok = true;
-        return t - 1;
-      }
-      return t;
-    });
-    return ok;
-  }, []);
+    if (tokens <= 0) return false;
+    setTokens((t) => Math.max(0, t - 1));
+    return true;
+  }, [tokens]);
 
   // Exchanges 1 Koin for 5 chat tokens.
   const buyTokens = useCallback(() => {
@@ -176,7 +171,7 @@ export function AppProvider({ children }) {
     }
     setCoins((c) => c - 1);
     setTokens((t) => t + 5);
-    showToast("+5 Token AI Mentor (ditukar 1 Koin)", "success");
+    showToast("+5 Token Alpet AI (ditukar 1 Koin)", "success");
     return true;
   }, [coins, showToast]);
 

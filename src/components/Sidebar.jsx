@@ -37,7 +37,7 @@ export default function Sidebar() {
         </div>
         <div>
           <p className="font-bold text-slate-900 text-base leading-tight">BizGrowth</p>
-          <p className="text-[10px] text-slate-400 font-medium leading-tight">AI Partner Bisnis UMKM</p>
+          <p className="text-[10px] text-slate-400 font-medium leading-tight">AI Partner Bisnis</p>
         </div>
       </div>
 

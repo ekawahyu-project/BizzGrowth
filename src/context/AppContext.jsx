@@ -109,19 +109,13 @@ export function AppProvider({ children }) {
   );
 
   const deductCoins = useCallback(
-    (amount, reason) => {
-      let ok = false;
-      setCoins((c) => {
-        if (c >= amount) {
-          ok = true;
-          return c - amount;
-        }
-        return c;
-      });
-      return ok;
-    },
-    []
-  );
+  (amount, reason) => {
+    if (coins < amount) return false;
+    setCoins((c) => Math.max(0, c - amount));
+    return true;
+  },
+  [coins]
+);
 
   const saveProfile = useCallback(
     (data) => {

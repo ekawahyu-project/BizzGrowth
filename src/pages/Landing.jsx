@@ -7,7 +7,7 @@ const FEATURES = [
     icon: "model_training",
     tint: "bg-primary-100 text-primary-600",
     title: "Simulator Bisnis",
-    desc: "Uji strategi harga, promosi, dan ekspansi secara virtual sebelum diterapkan ke dunia nyata — lihat dampaknya ke profit dan risiko dalam hitungan detik.",
+    desc: "Uji strategi harga, promosi, dan ekspansi secara virtual sebelum diterapkan ke dunia nyata dan lihat dampaknya ke profit serta risiko dalam hitungan detik.",
   },
   {
     icon: "account_balance_wallet",
@@ -25,7 +25,7 @@ const FEATURES = [
     icon: "smart_toy",
     tint: "bg-amber-100 text-amber-600",
     title: "AI Business Mentor",
-    desc: "Konsultasikan strategi kapan saja lewat chat — dapatkan saran konkret, bukan teori umum, langsung dari data bisnis Anda.",
+    desc: "Konsultasikan strategi kapan saja lewat chat dan dapatkan saran konkret, bukan teori umum, langsung dari data bisnis Anda.",
   },
 ];
 
@@ -36,7 +36,7 @@ const PROBLEMS = [
 ];
 
 const STEPS = [
-  { n: "01", title: "Daftar Gratis", desc: "Buat akun dalam 1 menit, langsung dapat koin awal untuk mencoba simulasi." },
+  { n: "01", title: "Daftar", desc: "Buat akun dalam 1 menit." },
   { n: "02", title: "Atur Skenario", desc: "Masukkan data bisnis Anda disertai harga, HPP, pemasukan, pengeluaran, strategi yang mau diuji." },
   { n: "03", title: "Dapat Rekomendasi AI", desc: "Lihat proyeksi profit, risiko, dan saran konkret sebelum Anda ambil keputusan sungguhan." },
 ];
@@ -82,7 +82,7 @@ export default function Landing() {
               to="/register"
               className="btn-glow bg-primary-600 hover:bg-primary-700 text-white text-sm font-bold px-5 py-2.5 rounded-xl transition-all shadow-md shadow-primary-600/20"
             >
-              Daftar Gratis
+              Daftar
             </Link>
           </div>
 
@@ -110,7 +110,7 @@ export default function Landing() {
                 Masuk
               </Link>
               <Link to="/register" className="text-center text-sm font-bold text-white bg-primary-600 rounded-xl py-2.5">
-                Daftar Gratis
+                Daftar
               </Link>
             </div>
           </div>
@@ -152,7 +152,7 @@ export default function Landing() {
               to="/register"
               className="btn-glow w-full sm:w-auto bg-primary-600 hover:bg-primary-700 text-white font-bold px-7 py-3.5 rounded-2xl transition-all shadow-lg shadow-primary-600/25 active:scale-95"
             >
-              Mulai Gratis Sekarang
+              Mulai Sekarang
             </Link>
             <a
               href="#fitur"
@@ -161,7 +161,6 @@ export default function Landing() {
               Lihat Fitur
             </a>
           </div>
-          <p className="text-xs text-slate-400 mt-4">Gratis daftar • Langsung dapat koin awal • Tanpa kartu kredit</p>
         </div>
       </section>
 
@@ -175,7 +174,7 @@ export default function Landing() {
                 Bisnis sulit berkembang bukan karena kurang usaha
               </h2>
               <p className="text-sm text-slate-500 leading-relaxed">
-                Banyak pemilik UMKM kesulitan mempertahankan bisnisnya karena keputusan diambil hanya berdasarkan
+                Banyak pemilik bisnis kesulitan mempertahankan bisnisnya karena keputusan diambil hanya berdasarkan
                 intuisi, tanpa alat bantu untuk menguji dampaknya lebih dulu.
               </p>
             </div>
@@ -245,7 +244,7 @@ export default function Landing() {
               to="/register"
               className="inline-block bg-white text-primary-700 font-bold px-8 py-3.5 rounded-2xl hover:bg-primary-50 transition-all shadow-lg active:scale-95"
             >
-              Daftar Gratis Sekarang
+              Daftar Sekarang
             </Link>
           </div>
         </div>

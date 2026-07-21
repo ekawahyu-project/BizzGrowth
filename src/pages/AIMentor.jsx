@@ -34,7 +34,7 @@ const PRESETS = {
     query: "Bagaimana cara membuat promosi akhir tahun tanpa merusak margin?",
     response: (
       <>
-        Promosi diskon langsung sering kali mengikis keuntungan bersih UMKM. Pendekatan alternatif yang terstruktur
+        Promosi diskon langsung sering kali mengikis keuntungan bersih. Pendekatan alternatif yang terstruktur
         sangat dianjurkan.
         <br />
         <br />
@@ -143,7 +143,7 @@ export default function AIMentor() {
         <p>{preset.response}</p>
       ) : (
         <p>
-          Terima kasih atas pertanyaannya mengenai: "<em>{userText}</em>". Sebagai rekomendasi awal untuk UMKM
+          Terima kasih atas pertanyaannya mengenai: "<em>{userText}</em>". Sebagai rekomendasi awal untuk
           berskala <strong>Mikro/Kecil</strong>, fokuslah pada pencatatan harian arus kas terlebih dahulu. Anda bisa
           menggunakan <strong>Simulator Bisnis</strong> kami untuk menguji skenario dampak kenaikan harga sebelum
           diterapkan di lapangan.

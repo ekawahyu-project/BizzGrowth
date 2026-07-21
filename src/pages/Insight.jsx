@@ -174,7 +174,7 @@ export default function Insight() {
           <div className="premium-card rounded-2xl p-5 flex items-center justify-between gap-3">
             <div>
               <h4 className="font-bold text-sm text-slate-800">Butuh koin lagi?</h4>
-              <p className="text-xs text-slate-500 mt-0.5">Isi survei singkat untuk dapat koin gratis.</p>
+              <p className="text-xs text-slate-500 mt-0.5">Top up atau dapatkan koin gratis dengan mengundang teman Anda.</p>
             </div>
             <button
               onClick={() => openProfileModal("wallet")}

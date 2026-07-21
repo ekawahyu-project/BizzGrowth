@@ -242,7 +242,7 @@ export default function Profil() {
       </section>
 
       <div className="text-center py-4 text-xs text-slate-400 font-medium">
-        BizGrowth v2.0.0 (React) · Platform UMKM Indonesia · © 2026
+        BizGrowth · Platform Bisnis Indonesia · © 2026
       </div>
     </div>
   );

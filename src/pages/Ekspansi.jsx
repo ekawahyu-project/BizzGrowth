@@ -28,7 +28,7 @@ const PRIORITY_RANK = [
     rank: 1,
     name: "Singapura",
     flag: "🇸🇬",
-    reason: "Bea masuk 0%, waktu kirim tercepat, dan daya beli tinggi untuk produk UMKM premium.",
+    reason: "Bea masuk 0%, waktu kirim tercepat, dan daya beli tinggi untuk produk premium.",
   },
   {
     rank: 2,

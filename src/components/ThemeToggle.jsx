@@ -1,7 +1,19 @@
 import { useApp } from "../context/AppContext";
 
-export default function ThemeToggle() {
+export default function ThemeToggle({ compact }) {
   const { darkMode, toggleDarkMode } = useApp();
+
+  if (compact) {
+    return (
+      <button
+        onClick={toggleDarkMode}
+        aria-label="Ganti tema"
+        className="w-9 h-9 rounded-lg flex items-center justify-center text-slate-500 hover:bg-slate-100 dark:hover:bg-white/10 transition-colors shrink-0"
+      >
+        <span className="material-symbols-outlined text-lg">{darkMode ? "dark_mode" : "light_mode"}</span>
+      </button>
+    );
+  }
 
   return (
     <button

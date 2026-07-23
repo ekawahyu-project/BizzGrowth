@@ -196,7 +196,7 @@ export default function AIMentor() {
 
   function exportPlan() {
     if (tasks.length === 0) return;
-    let content = "BIZGROWTH - RENCANA AKSI BISNIS\n========================================\n\n";
+    let content = "SIMULABIZ - RENCANA AKSI BISNIS\n========================================\n\n";
     tasks.forEach((t, i) => {
       content += `${i + 1}. ${t.checked ? "[SELESAI]" : "[BELUM SELESAI]"} ${t.text}\n`;
     });
@@ -204,7 +204,7 @@ export default function AIMentor() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "BizGrowth_Rencana_Aksi.txt";
+    a.download = "SimulaBiz_Rencana_Aksi.txt";
     a.click();
     URL.revokeObjectURL(url);
     showToast("Rencana Aksi berhasil diunduh!", "success");

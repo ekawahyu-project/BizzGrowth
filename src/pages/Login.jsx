@@ -25,7 +25,7 @@ export default function Login() {
 
         <div className="text-center mb-6">
           <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center shadow-lg shadow-primary-700/20 mx-auto mb-3 p-2.5">
-            <img src="/logo.png" alt="BizGrowth Logo" className="w-full h-full object-contain" />
+            <img src="/logo.png" alt="SimulaBiz Logo" className="w-full h-full object-contain" />
           </div>
           <h2 className="font-bold text-2xl text-slate-850">Selamat Datang Kembali</h2>
           <p className="text-xs text-slate-500 mt-1">Masuk untuk melanjutkan simulasi bisnis Anda</p>

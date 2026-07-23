@@ -1,6 +1,6 @@
-# BizGrowth — AI Business Simulator untuk UMKM
+# SimulaBiz — AI Business Simulator untuk UMKM
 
-Platform simulasi keputusan bisnis, intelijen keuangan, dan konsultasi AI untuk pelaku UMKM Indonesia. Dibangun sebagai React SPA (Vite + React Router + Tailwind CSS).
+Platform simulasi keputusan bisnis, intelijen keuangan, dan konsultasi AI untuk Bisnis. Dibangun sebagai React SPA (Vite + React Router + Tailwind CSS).
 
 ## Struktur Halaman & Navigasi
 
@@ -31,7 +31,7 @@ Halaman yang butuh login dijaga oleh `ProtectedRoute` — kalau belum/tidak logi
 | Laporan Analisis Lengkap (Ekspansi) | 2 Koin |
 
 ### Top-up Koin
-1 Koin/Rp5.000 · 3/Rp14.500 · 5/Rp24.000 · 10/Rp48.000 · 20/Rp95.000 · 50/Rp229.000 — diatur di `src/components/modals/ProfileModal.jsx`.
+1 Koin/Rp4.999 · 3/Rp14.499 · 5/Rp23.999 · 10/Rp47.999 · 20/Rp94.999 · 50/Rp228.999 — diatur di `src/components/modals/ProfileModal.jsx`.
 
 ### Koin Gratis
 Cuma dari program **Undang Teman UMKM** (+2 Koin/teman berhasil daftar).

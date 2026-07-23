@@ -33,10 +33,10 @@ export default function Sidebar() {
       {/* Brand */}
       <div className="h-16 flex items-center gap-3 px-5 border-b border-slate-100">
         <div className="w-9 h-9 rounded-xl bg-primary-600 flex items-center justify-center p-1.5 shrink-0">
-          <img src="/logo.png" alt="BizGrowth" className="w-full h-full object-contain" />
+          <img src="/logo.png" alt="Simulabiz" className="w-full h-full object-contain" />
         </div>
         <div>
-          <p className="font-bold text-slate-900 text-base leading-tight">BizGrowth</p>
+          <p className="font-bold text-slate-900 text-base leading-tight">SimulaBiz</p>
           <p className="text-[10px] text-slate-400 font-medium leading-tight">Partner Bisnis</p>
         </div>
       </div>

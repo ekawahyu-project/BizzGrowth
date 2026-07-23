@@ -17,12 +17,12 @@ const SCALES = [
 ];
 
 const COIN_BUNDLES = [
-  { coins: 1, price: "Rp 5.000" },
-  { coins: 3, price: "Rp 14.500" },
-  { coins: 5, price: "Rp 24.000" },
-  { coins: 10, price: "Rp 48.000" },
-  { coins: 20, price: "Rp 95.000" },
-  { coins: 50, price: "Rp 229.000" },
+  { coins: 1, price: "Rp 4.999" },
+  { coins: 3, price: "Rp 14.499" },
+  { coins: 5, price: "Rp 23.999" },
+  { coins: 10, price: "Rp 47.999" },
+  { coins: 20, price: "Rp 94.999" },
+  { coins: 50, price: "Rp 228.999" },
 ];
 
 export default function ProfileModal() {
@@ -209,7 +209,7 @@ export default function ProfileModal() {
                       </div>
                       <div>
                         <p className="font-bold text-xs text-slate-800">Undang Teman</p>
-                        <p className="text-[10px] text-slate-500">Berhasil mendaftar di BizGrowth</p>
+                        <p className="text-[10px] text-slate-500">Berhasil mendaftar di SimulaBiz</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
@@ -225,6 +225,54 @@ export default function ProfileModal() {
                       >
                         Undang
                       </button>
+                    </div>
+                  </div>
+
+                  <div className="p-3.5 bg-slate-50 border border-slate-100 rounded-xl flex flex-col gap-3">
+                    <div>
+                      <p className="font-bold text-xs text-slate-800">Kode Referral Anda</p>
+                      <p className="text-[10px] text-slate-500 mb-2">Bagikan ke teman, dapatkan +2 Koin saat mereka mendaftar.</p>
+                      <div className="flex items-center gap-2">
+                        <code className="px-3 py-1.5 bg-white border border-slate-200 text-slate-800 rounded-lg text-sm font-mono flex-grow text-center tracking-widest font-bold">
+                          {form.phone ? form.phone.slice(-6).padEnd(6, '0') : "SB1234"}
+                        </code>
+                        <button 
+                          onClick={() => {
+                            navigator.clipboard.writeText(form.phone ? form.phone.slice(-6).padEnd(6, '0') : "SB1234");
+                            showToast("Kode disalin!", "success");
+                          }}
+                          className="px-3 py-1.5 bg-primary-100 hover:bg-primary-200 text-primary-700 rounded-lg text-xs font-semibold transition-colors"
+                        >
+                          Salin
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="pt-3 border-t border-slate-200">
+                      <p className="font-bold text-xs text-slate-800 mb-2">Masukkan Kode Teman</p>
+                      <div className="flex items-center gap-2">
+                        <input 
+                          type="text" 
+                          placeholder="Contoh: SB1234" 
+                          className="flex-grow px-3 py-1.5 border border-slate-200 rounded-lg text-sm outline-none focus:border-primary-500 font-mono uppercase"
+                          id="refCode"
+                        />
+                        <button 
+                          className="px-4 py-1.5 bg-primary-600 hover:bg-primary-700 text-white rounded-lg text-xs font-semibold shadow-sm transition-all whitespace-nowrap"
+                          onClick={() => {
+                            const input = document.getElementById('refCode');
+                            if(input.value.length >= 4) {
+                              addCoins(5, "Kode Referral");
+                              showToast("Kode referral berhasil digunakan! +5 Koin", "success");
+                              input.value = "";
+                            } else {
+                              showToast("Kode referral tidak valid", "error");
+                            }
+                          }}
+                        >
+                          Klaim
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -249,6 +297,49 @@ export default function ProfileModal() {
                       <span className="text-[10px] text-slate-500 font-mono">{b.price}</span>
                     </button>
                   ))}
+                </div>
+              </div>
+
+              <div>
+                <h4 className="font-bold text-slate-850 text-sm uppercase tracking-wider mb-3">
+                  Paket Bundling Spesial
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="p-4 bg-gradient-to-br from-primary-50 to-indigo-50 border border-primary-200 rounded-xl relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 bg-rose-500 text-white text-[9px] font-bold px-2 py-1 rounded-bl-lg rounded-tr-xl z-10">HEMAT 20%</div>
+                    <div className="relative z-10">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="material-symbols-outlined text-primary-600 icon-fill text-xl">workspace_premium</span>
+                        <span className="font-bold text-sm text-slate-800">Starter Pack</span>
+                      </div>
+                      <p className="text-[10px] text-slate-600 mb-3">15 Koin + Bebas Akses Simulator 1 Bulan</p>
+                      <div className="flex items-center justify-between mt-auto">
+                        <div className="flex flex-col">
+                          <span className="text-[10px] text-slate-400 line-through">Rp 85.000</span>
+                          <span className="text-sm font-bold text-primary-700">Rp 68.000</span>
+                        </div>
+                        <button onClick={() => { addCoins(15, "Starter Pack"); showToast("Pembelian Starter Pack berhasil", "success"); }} className="px-4 py-1.5 bg-primary-600 hover:bg-primary-700 text-white text-xs font-semibold rounded-lg transition-colors">Beli</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="p-4 bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200 rounded-xl relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 bg-rose-500 text-white text-[9px] font-bold px-2 py-1 rounded-bl-lg rounded-tr-xl z-10">POPULER</div>
+                    <div className="relative z-10">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="material-symbols-outlined text-amber-600 icon-fill text-xl">stars</span>
+                        <span className="font-bold text-sm text-slate-800">Pro Business</span>
+                      </div>
+                      <p className="text-[10px] text-slate-600 mb-3">50 Koin + Mentor AI Prioritas</p>
+                      <div className="flex items-center justify-between mt-auto">
+                        <div className="flex flex-col">
+                          <span className="text-[10px] text-slate-400 line-through">Rp 250.000</span>
+                          <span className="text-sm font-bold text-amber-700">Rp 199.000</span>
+                        </div>
+                        <button onClick={() => { addCoins(50, "Pro Business"); showToast("Pembelian Pro Business berhasil", "success"); }} className="px-4 py-1.5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold rounded-lg transition-colors">Beli</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

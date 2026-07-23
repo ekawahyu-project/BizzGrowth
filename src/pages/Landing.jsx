@@ -63,9 +63,9 @@ export default function Landing() {
         <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="w-9 h-9 rounded-xl bg-primary-600 flex items-center justify-center p-1.5 shrink-0">
-              <img src="/logo.png" alt="BizGrowth" className="w-full h-full object-contain" />
+              <img src="/logo.png" alt="SimulaBiz" className="w-full h-full object-contain" />
             </div>
-            <span className="font-bold text-slate-900 text-lg">BizGrowth</span>
+            <span className="font-bold text-slate-900 text-lg">SimulaBiz</span>
           </div>
 
           <nav className="hidden md:flex items-center gap-8">
@@ -144,7 +144,7 @@ export default function Landing() {
             </span>
           </h1>
           <p className="text-slate-500 text-base md:text-lg mt-5 max-w-2xl mx-auto leading-relaxed">
-            BizGrowth membantu pemilik bisnis mensimulasikan strategi harga, promosi, dan ekspansi secara virtual serta
+            SimulaBiz membantu pemilik bisnis mensimulasikan strategi harga, promosi, dan ekspansi secara virtual serta
             lengkap dengan analisis keuangan dan konsultasi AI, tanpa perlu biaya konsultan mahal.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-8">
@@ -255,12 +255,12 @@ export default function Landing() {
         <div className="max-w-6xl mx-auto px-5 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2.5">
             <div className="w-7 h-7 rounded-lg bg-primary-600 flex items-center justify-center p-1">
-              <img src="/logo.png" alt="BizGrowth" className="w-full h-full object-contain" />
+              <img src="/logo.png" alt="SimulaBiz" className="w-full h-full object-contain" />
             </div>
-            <span className="font-bold text-slate-800 text-sm">BizGrowth</span>
+            <span className="font-bold text-slate-800 text-sm">SimulaBiz</span>
           </div>
           <p className="text-xs text-slate-400 text-center">
-            © 2026 BizGrowth · Partner Bisnis
+            © 2026 SimulaBiz · Partner Bisnis
           </p>
           <div className="flex items-center gap-4">
             <Link to="/login" className="text-xs font-semibold text-slate-500 hover:text-primary-700">

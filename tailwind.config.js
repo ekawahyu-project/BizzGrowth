@@ -13,7 +13,7 @@ export default {
           150: "#e9eff4",
           850: "#172033",
         },
-        // Primary = SimulaBiz/BizGrowth brand purple (from the new Material 3 design system)
+        // Primary = SimulaBiz brand purple (from the new Material 3 design system)
         primary: {
           DEFAULT: "#673dcd",
           50: "#f5f2fe",

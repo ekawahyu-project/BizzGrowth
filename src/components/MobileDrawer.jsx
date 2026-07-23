@@ -46,10 +46,10 @@ export default function MobileDrawer({ open, onClose }) {
         <div className="h-16 flex items-center justify-between gap-3 px-5 border-b border-slate-100 shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-primary-600 flex items-center justify-center p-1.5 shrink-0">
-              <img src="/logo.png" alt="BizGrowth" className="w-full h-full object-contain" />
+              <img src="/logo.png" alt="SimulaBiz" className="w-full h-full object-contain" />
             </div>
             <div>
-              <p className="font-bold text-slate-900 text-base leading-tight">BizGrowth</p>
+              <p className="font-bold text-slate-900 text-base leading-tight">SimulaBiz</p>
               <p className="text-[10px] text-slate-400 font-medium leading-tight">Partner Bisnis</p>
             </div>
           </div>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useApp } from "../context/AppContext";
 
-const EARN_TASKS = [{ icon: "group", title: "Undang Teman", reward: "+2 Koin / teman" }];
+const EARN_TASKS = [{ icon: "group", title: "Undang Teman UMKM", reward: "+2 Koin / teman" }];
 
 const SETTINGS_ROWS = [
   {
@@ -43,7 +43,7 @@ export default function Profil() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="font-bold text-2xl md:text-3xl text-slate-900 leading-tight">Profil</h1>
+        <h1 className="font-bold text-2xl md:text-3xl text-slate-900 leading-tight">Profil & Pengaturan</h1>
         <p className="text-slate-500 text-sm mt-1">Kelola informasi bisnis, koin, dan preferensi akun Anda.</p>
       </div>
 
@@ -73,7 +73,7 @@ export default function Profil() {
           <h2 className="font-bold text-2xl text-slate-900">{profile.owner || "Eka Wahyu"}</h2>
           <p className="text-slate-500 flex items-center justify-center md:justify-start gap-1.5 mt-0.5">
             <span className="material-symbols-outlined text-primary-600 text-base">storefront</span>
-            <span className="font-medium">{profile.business || "KPC"}</span>
+            <span className="font-medium">{profile.business || "Kopi Kenangan Rakyat"}</span>
           </p>
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mt-3">
             <Badge icon="check_circle" color="tertiary">
@@ -101,6 +101,9 @@ export default function Profil() {
 
       {/* Manajemen Produk */}
       <ProductManager />
+
+      {/* Data Keuangan Bisnis */}
+      <FinanceManager />
 
       {/* Bento grid */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-5 mb-5">
@@ -242,7 +245,7 @@ export default function Profil() {
       </section>
 
       <div className="text-center py-4 text-xs text-slate-400 font-medium">
-        BizGrowth · Platform Bisnis Indonesia · © 2026
+        BizGrowth v2.0.0 (React) · Platform UMKM Indonesia · © 2026
       </div>
     </div>
   );
@@ -294,7 +297,7 @@ function ProductManager() {
         <div>
           <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest">Manajemen Produk</h3>
           <p className="text-[11px] text-slate-400 mt-0.5">
-            Semua produk Anda nanti bisa dipilih langsung saat mengatur strategi promosi atau bundling di Simulasi.
+            Semua produk UMKM Anda — nanti bisa dipilih langsung saat mengatur strategi promosi/bundling di Simulasi.
           </p>
         </div>
       </div>
@@ -350,5 +353,131 @@ function ProductManager() {
         </form>
       </div>
     </section>
+  );
+}
+
+function FinanceManager() {
+  const { finances, updateFinances, healthMetrics } = useApp();
+  const [local, setLocal] = useState(finances);
+  const [saved, setSaved] = useState(false);
+
+  function set(field, value) {
+    setLocal((prev) => ({ ...prev, [field]: value }));
+    setSaved(false);
+  }
+
+  function handleSave(e) {
+    e.preventDefault();
+    updateFinances(local);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
+  }
+
+  return (
+    <section className="premium-card rounded-2xl overflow-hidden mb-5">
+      <div className="px-5 py-4 border-b border-slate-100 bg-slate-50/50 flex items-center gap-2">
+        <span className="material-symbols-outlined text-primary-600">monitoring</span>
+        <div>
+          <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest">Data Keuangan Bisnis</h3>
+          <p className="text-[11px] text-slate-400 mt-0.5">
+            Dipakai untuk menghitung Skor Kesehatan, Cash Flow, Risiko, dan Prediksi Keuangan di Beranda & Insight.
+          </p>
+        </div>
+        {healthMetrics.hasData && (
+          <span
+            className={`ml-auto shrink-0 text-[10px] font-bold px-2.5 py-1 rounded-full ${
+              healthMetrics.scoreTint === "tertiary"
+                ? "bg-tertiary-100 text-tertiary-700"
+                : healthMetrics.scoreTint === "amber"
+                ? "bg-amber-100 text-amber-700"
+                : "bg-rose-100 text-rose-600"
+            }`}
+          >
+            Skor Saat Ini: {healthMetrics.score}/100
+          </span>
+        )}
+      </div>
+
+      <form onSubmit={handleSave} className="p-5 space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <RpInput
+            label="Pemasukan Rata-rata / Bulan"
+            value={local.pemasukanBulanan}
+            onChange={(v) => set("pemasukanBulanan", v)}
+            placeholder="Contoh: 15000000"
+          />
+          <RpInput
+            label="Pengeluaran Rata-rata / Bulan"
+            value={local.pengeluaranBulanan}
+            onChange={(v) => set("pengeluaranBulanan", v)}
+            placeholder="Contoh: 9000000"
+          />
+          <RpInput
+            label="Keuntungan Bulan Lalu"
+            value={local.keuntunganLalu}
+            onChange={(v) => set("keuntunganLalu", v)}
+            placeholder="Kosongkan jika tidak untung"
+            optional
+          />
+          <RpInput
+            label="Kerugian Bulan Lalu"
+            value={local.kerugianLalu}
+            onChange={(v) => set("kerugianLalu", v)}
+            placeholder="Kosongkan jika tidak rugi"
+            optional
+          />
+          <RpInput
+            label="Break Even Point"
+            value={local.bep}
+            onChange={(v) => set("bep", v)}
+            placeholder="Contoh: 10000000"
+          />
+          <div>
+            <label className="block text-xs font-semibold text-slate-600 mb-1.5">
+              Asumsi Pertumbuhan / Tahun (%)
+            </label>
+            <input
+              type="number"
+              value={local.growthAssumption}
+              onChange={(e) => set("growthAssumption", e.target.value)}
+              className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-sm"
+            />
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          className="w-full sm:w-auto px-6 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-xl text-sm transition-all flex items-center justify-center gap-1.5"
+        >
+          <span className="material-symbols-outlined text-lg">{saved ? "check" : "save"}</span>
+          {saved ? "Tersimpan!" : "Simpan Data Keuangan"}
+        </button>
+        <p className="text-[11px] text-slate-400">
+          Estimasi ilustratif berdasarkan data yang Anda masukkan — bukan pengganti pembukuan/analisis akuntan
+          profesional.
+        </p>
+      </form>
+    </section>
+  );
+}
+
+function RpInput({ label, value, onChange, placeholder, optional }) {
+  return (
+    <div>
+      <label className="block text-xs font-semibold text-slate-600 mb-1.5">
+        {label} {optional && <span className="text-slate-400 font-normal">(opsional)</span>}
+      </label>
+      <div className="relative">
+        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold">Rp</span>
+        <input
+          type="text"
+          inputMode="numeric"
+          value={value}
+          onChange={(e) => onChange(e.target.value.replace(/[^0-9]/g, ""))}
+          placeholder={placeholder}
+          className="w-full pl-9 pr-3 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-sm"
+        />
+      </div>
+    </div>
   );
 }

@@ -9,9 +9,16 @@ const MODULES = [
 ];
 
 export default function Beranda() {
-  const { profile, coins } = useApp();
+  const { profile, coins, healthMetrics } = useApp();
   const navigate = useNavigate();
   const firstName = (profile.owner || "Eka Wahyu").split(" ")[0];
+
+  const scoreTintClass = {
+    tertiary: "bg-tertiary-100 text-tertiary-700",
+    amber: "bg-amber-100 text-amber-700",
+    rose: "bg-rose-100 text-rose-600",
+    slate: "bg-slate-100 text-slate-500",
+  }[healthMetrics.scoreTint];
 
   return (
     <div className="space-y-6">
@@ -31,7 +38,7 @@ export default function Beranda() {
               <span className="material-symbols-outlined text-white icon-fill text-lg">smart_toy</span>
             </div>
             <div className="flex-1">
-              <p className="text-sm font-bold text-white">Alpet AI</p>
+              <p className="text-sm font-bold text-white">AI Mentor</p>
               <p className="text-xs text-white/80">Tanya apa saja tentang bisnismu</p>
             </div>
             <span className="material-symbols-outlined text-white group-hover:translate-x-1 transition-transform">
@@ -49,36 +56,77 @@ export default function Beranda() {
             Lihat Semua
           </button>
         </div>
-        <div className="grid grid-cols-2 gap-3">
-          <div className="premium-card rounded-2xl p-4">
-            <p className="text-xs text-slate-500 font-medium">Prediksi Profit (30 Hari)</p>
-            <p className="text-lg font-extrabold text-slate-850 mt-1.5 font-mono">Rp 24.750.000</p>
-            <p className="text-xs font-bold text-tertiary-600 mt-1 flex items-center gap-1">
-              <span className="material-symbols-outlined text-[14px]">north_east</span>
-              12.4% vs 30 hari lalu
-            </p>
-          </div>
-          <div className="premium-card rounded-2xl p-4">
-            <p className="text-xs text-slate-500 font-medium">Skor Kesehatan</p>
-            <div className="flex items-baseline gap-1 mt-1.5">
-              <span className="text-lg font-extrabold text-primary-600 font-mono">82</span>
-              <span className="text-xs text-slate-400">/ 100</span>
+
+        {!healthMetrics.hasData ? (
+          <div className="premium-card rounded-2xl p-6 flex items-center justify-between gap-4 flex-wrap">
+            <div className="flex items-center gap-3">
+              <div className="w-11 h-11 rounded-xl bg-primary-100 text-primary-600 flex items-center justify-center shrink-0">
+                <span className="material-symbols-outlined">monitoring</span>
+              </div>
+              <div>
+                <p className="text-sm font-bold text-slate-800">Data keuangan belum diisi</p>
+                <p className="text-xs text-slate-500">
+                  Isi data pemasukan & pengeluaran di Profil supaya Skor Kesehatan bisa dihitung.
+                </p>
+              </div>
             </div>
-            <span className="inline-block mt-1.5 px-2 py-0.5 bg-tertiary-100 text-tertiary-700 text-[10px] font-bold rounded-full">
-              Baik
-            </span>
+            <button
+              onClick={() => navigate("/profil")}
+              className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all shrink-0"
+            >
+              Isi Data Sekarang
+            </button>
           </div>
-          <div className="premium-card rounded-2xl p-4">
-            <p className="text-xs text-slate-500 font-medium">Cash Flow</p>
-            <p className="text-lg font-extrabold text-secondary-600 mt-1.5">Aman</p>
-            <p className="text-xs text-tertiary-600 font-bold mt-1">Positif</p>
+        ) : (
+          <div className="grid grid-cols-2 gap-3">
+            <div className="premium-card rounded-2xl p-4">
+              <p className="text-xs text-slate-500 font-medium">Estimasi Laba Bulanan</p>
+              <p className="text-lg font-extrabold text-slate-850 mt-1.5 font-mono">
+                Rp {healthMetrics.laba.toLocaleString("id-ID")}
+              </p>
+              <p className={`text-xs font-bold mt-1 flex items-center gap-1 ${healthMetrics.laba >= 0 ? "text-tertiary-600" : "text-rose-500"}`}>
+                <span className="material-symbols-outlined text-[14px]">
+                  {healthMetrics.laba >= 0 ? "north_east" : "south_east"}
+                </span>
+                {(healthMetrics.marginRatio * 100).toFixed(1)}% margin dari pemasukan
+              </p>
+            </div>
+            <div className="premium-card rounded-2xl p-4">
+              <p className="text-xs text-slate-500 font-medium">Skor Kesehatan</p>
+              <div className="flex items-baseline gap-1 mt-1.5">
+                <span className="text-lg font-extrabold text-primary-600 font-mono">{healthMetrics.score}</span>
+                <span className="text-xs text-slate-400">/ 100</span>
+              </div>
+              <span className={`inline-block mt-1.5 px-2 py-0.5 text-[10px] font-bold rounded-full ${scoreTintClass}`}>
+                {healthMetrics.scoreLabel}
+              </span>
+            </div>
+            <div className="premium-card rounded-2xl p-4">
+              <p className="text-xs text-slate-500 font-medium">Cash Flow</p>
+              <p className="text-lg font-extrabold text-secondary-600 mt-1.5">
+                {healthMetrics.cashFlowStatus === "positive" ? "Aman" : healthMetrics.cashFlowStatus === "flat" ? "Pas-pasan" : "Waspada"}
+              </p>
+              <p className={`text-xs font-bold mt-1 ${healthMetrics.cashFlowStatus === "positive" ? "text-tertiary-600" : "text-rose-500"}`}>
+                {healthMetrics.cashFlowStatus === "positive" ? "Positif" : healthMetrics.cashFlowStatus === "flat" ? "Netral" : "Negatif"}
+              </p>
+            </div>
+            <div className="premium-card rounded-2xl p-4">
+              <p className="text-xs text-slate-500 font-medium">Risiko Bisnis</p>
+              <p
+                className={`text-lg font-extrabold mt-1.5 ${
+                  healthMetrics.riskLevel === "Rendah"
+                    ? "text-tertiary-600"
+                    : healthMetrics.riskLevel === "Sedang"
+                    ? "text-amber-600"
+                    : "text-rose-500"
+                }`}
+              >
+                {healthMetrics.riskLevel}
+              </p>
+              <p className="text-xs text-slate-400 mt-1">Berdasarkan margin & jarak ke BEP</p>
+            </div>
           </div>
-          <div className="premium-card rounded-2xl p-4">
-            <p className="text-xs text-slate-500 font-medium">Risiko Bisnis</p>
-            <p className="text-lg font-extrabold text-rose-500 mt-1.5">Rendah</p>
-            <p className="text-xs text-slate-400 mt-1">2 risiko terdeteksi</p>
-          </div>
-        </div>
+        )}
       </section>
 
       {/* Modul Utama */}

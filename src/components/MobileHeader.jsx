@@ -10,10 +10,10 @@ export default function MobileHeader({ onMenuClick }) {
           <span className="material-symbols-outlined">menu</span>
         </button>
         <div className="w-8 h-8 rounded-lg bg-primary-600 flex items-center justify-center p-1 shrink-0">
-          <img src="/logo.png" alt="BizGrowth" className="w-full h-full object-contain" />
+          <img src="/logo.png" alt="SimulaBiz" className="w-full h-full object-contain" />
         </div>
         <div className="leading-tight">
-          <p className="font-bold text-slate-900 text-sm">BizGrowth</p>
+          <p className="font-bold text-slate-900 text-sm">SimulaBiz</p>
           <p className="text-[10px] text-slate-400 font-medium">Partner Bisnis</p>
         </div>
       </div>

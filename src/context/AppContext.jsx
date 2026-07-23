@@ -119,6 +119,14 @@ export function AppProvider({ children }) {
     [showToast]
   );
 
+  const addTokens = useCallback(
+    (amount, reason) => {
+      setTokens((t) => t + amount);
+      if (reason) showToast(`+${amount} Token Alpet AI: ${reason}`, "success");
+    },
+    [showToast]
+  );
+
   const deductCoins = useCallback(
     (amount, reason) => {
       if (coins < amount) return false;
@@ -265,8 +273,13 @@ export function AppProvider({ children }) {
 
     // 3) Tren bulan lalu (0-20, netral 10 kalau belum diisi keduanya)
     let trendScore = 10;
-    if (keuntunganLalu !== null && keuntunganLalu > 0) trendScore = 20;
-    else if (kerugianLalu !== null && kerugianLalu > 0) trendScore = 0;
+    const netLalu = (keuntunganLalu || 0) - (kerugianLalu || 0);
+    
+    if (keuntunganLalu !== null || kerugianLalu !== null) {
+      if (netLalu > 0) trendScore = 20;
+      else if (netLalu < 0) trendScore = 0;
+      // Jika netLalu === 0, biarkan 10 (netral)
+    }
 
     const score = hasData ? Math.max(0, Math.min(100, Math.round(marginScore + bepScore + trendScore))) : null;
 
@@ -339,6 +352,7 @@ export function AppProvider({ children }) {
     addProduct,
     removeProduct,
     tokens,
+    addTokens,
     useToken,
     buyTokens,
     finances,

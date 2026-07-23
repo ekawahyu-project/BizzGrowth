@@ -17,12 +17,19 @@ const SCALES = [
 ];
 
 const COIN_BUNDLES = [
-  { coins: 1, price: "Rp 4.999" },
-  { coins: 3, price: "Rp 14.499" },
-  { coins: 5, price: "Rp 23.999" },
-  { coins: 10, price: "Rp 47.999" },
-  { coins: 20, price: "Rp 94.999" },
-  { coins: 50, price: "Rp 228.999" },
+  { coins: 1, price: "Rp 5.000" },
+  { coins: 3, price: "Rp 14.700" },
+  { coins: 5, price: "Rp 24.000" },
+  { coins: 10, price: "Rp 48.000" },
+  { coins: 20, price: "Rp 95.000" },
+  { coins: 50, price: "Rp 229.000" },
+];
+
+const SUBSCRIPTION_PACKAGES = [
+  { name: "Paket Basic", price: "Rp 32.300", features: "5 Koin + 10 Token Alpet AI", coins: 5, tokens: 10, icon: "workspace_premium", style: "from-primary-50 to-indigo-50 border-primary-200 dark:from-slate-800/80 dark:to-slate-900 dark:border-slate-700", textCol: "text-primary-700 dark:text-primary-400", iconCol: "text-primary-600 dark:text-primary-400", btnCol: "bg-primary-600 hover:bg-primary-700", badge: "" },
+  { name: "Paket Plus", price: "Rp 66.240", features: "10 Koin + 25 Token Alpet AI", coins: 10, tokens: 25, icon: "verified", style: "from-indigo-50 to-purple-50 border-indigo-200 dark:from-slate-800/80 dark:to-slate-900 dark:border-slate-700", textCol: "text-indigo-700 dark:text-indigo-400", iconCol: "text-indigo-600 dark:text-indigo-400", btnCol: "bg-indigo-600 hover:bg-indigo-700", badge: "" },
+  { name: "Paket Pro", price: "Rp 135.900", features: "20 Koin + 60 Token Alpet AI", coins: 20, tokens: 60, icon: "stars", style: "from-amber-50 to-orange-50 border-amber-200 dark:from-slate-800/80 dark:to-slate-900 dark:border-slate-700", textCol: "text-amber-700 dark:text-amber-400", iconCol: "text-amber-600 dark:text-amber-400", btnCol: "bg-amber-600 hover:bg-amber-700", badge: "" },
+  { name: "Paket Max", price: "Rp 325.600", features: "50 Koin + 150 Token Alpet AI", coins: 50, tokens: 150, icon: "diamond", style: "from-rose-50 to-pink-50 border-rose-200 dark:from-slate-800/80 dark:to-slate-900 dark:border-slate-700", textCol: "text-rose-700 dark:text-rose-400", iconCol: "text-rose-600 dark:text-rose-400", btnCol: "bg-rose-600 hover:bg-rose-700", badge: "" }
 ];
 
 export default function ProfileModal() {
@@ -36,6 +43,7 @@ export default function ProfileModal() {
     invitedFriends,
     setInvitedFriends,
     addCoins,
+    addTokens,
     showToast,
   } = useApp();
 
@@ -290,11 +298,11 @@ export default function ProfileModal() {
                         addCoins(b.coins, `Top-up ${b.coins} Koin`);
                         showToast(`Pembayaran ${b.price} berhasil disimulasikan`, "success");
                       }}
-                      className="flex flex-col items-center gap-1 p-3.5 bg-slate-50 hover:bg-primary-50 border border-slate-150 hover:border-primary-300 rounded-xl transition-all"
+                      className="flex flex-col items-center gap-1 p-3.5 bg-slate-50 hover:bg-primary-50 border border-slate-150 hover:border-primary-300 rounded-xl transition-all dark:bg-slate-800/80 dark:border-slate-700 dark:hover:bg-slate-800 dark:hover:border-primary-500"
                     >
                       <span className="material-symbols-outlined text-amber-500 icon-fill text-xl">payments</span>
-                      <span className="font-bold text-sm text-slate-800">{b.coins} Koin</span>
-                      <span className="text-[10px] text-slate-500 font-mono">{b.price}</span>
+                      <span className="font-bold text-sm text-slate-800 dark:text-slate-100">{b.coins} Koin</span>
+                      <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">{b.price}</span>
                     </button>
                   ))}
                 </div>
@@ -302,44 +310,40 @@ export default function ProfileModal() {
 
               <div>
                 <h4 className="font-bold text-slate-850 text-sm uppercase tracking-wider mb-3">
-                  Paket Bundling Spesial
+                  Paket Subscription Bulanan
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  <div className="p-4 bg-gradient-to-br from-primary-50 to-indigo-50 border border-primary-200 rounded-xl relative overflow-hidden group">
-                    <div className="absolute top-0 right-0 bg-rose-500 text-white text-[9px] font-bold px-2 py-1 rounded-bl-lg rounded-tr-xl z-10">HEMAT 20%</div>
-                    <div className="relative z-10">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="material-symbols-outlined text-primary-600 icon-fill text-xl">workspace_premium</span>
-                        <span className="font-bold text-sm text-slate-800">Starter Pack</span>
-                      </div>
-                      <p className="text-[10px] text-slate-600 mb-3">15 Koin + Bebas Akses Simulator 1 Bulan</p>
-                      <div className="flex items-center justify-between mt-auto">
-                        <div className="flex flex-col">
-                          <span className="text-[10px] text-slate-400 line-through">Rp 85.000</span>
-                          <span className="text-sm font-bold text-primary-700">Rp 68.000</span>
+                  {SUBSCRIPTION_PACKAGES.map((pkg, i) => (
+                    <div key={i} className={`p-4 bg-gradient-to-br ${pkg.style} border rounded-xl relative overflow-hidden group`}>
+                      {pkg.badge && (
+                        <div className="absolute top-0 right-0 bg-rose-500 text-white text-[9px] font-bold px-2 py-1 rounded-bl-lg rounded-tr-xl z-10">
+                          {pkg.badge}
                         </div>
-                        <button onClick={() => { addCoins(15, "Starter Pack"); showToast("Pembelian Starter Pack berhasil", "success"); }} className="px-4 py-1.5 bg-primary-600 hover:bg-primary-700 text-white text-xs font-semibold rounded-lg transition-colors">Beli</button>
+                      )}
+                      <div className="relative z-10 flex flex-col h-full">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className={`material-symbols-outlined ${pkg.iconCol} icon-fill text-xl`}>{pkg.icon}</span>
+                          <span className="font-bold text-sm text-slate-800 dark:text-slate-100">{pkg.name}</span>
+                        </div>
+                        <p className="text-[10px] text-slate-600 dark:text-slate-400 mb-3">{pkg.features}</p>
+                        <div className="flex items-center justify-between mt-auto pt-2">
+                          <div className="flex flex-col">
+                            <span className={`text-sm font-bold ${pkg.textCol}`}>{pkg.price}</span>
+                          </div>
+                          <button 
+                            onClick={() => { 
+                              addCoins(pkg.coins, `Langganan ${pkg.name}`); 
+                              addTokens(pkg.tokens, `Langganan ${pkg.name}`); 
+                              showToast(`Pembelian ${pkg.name} berhasil!`, "success"); 
+                            }} 
+                            className={`px-4 py-1.5 ${pkg.btnCol} text-white text-xs font-semibold rounded-lg transition-colors active:scale-95`}
+                          >
+                            Beli
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-
-                  <div className="p-4 bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200 rounded-xl relative overflow-hidden group">
-                    <div className="absolute top-0 right-0 bg-rose-500 text-white text-[9px] font-bold px-2 py-1 rounded-bl-lg rounded-tr-xl z-10">POPULER</div>
-                    <div className="relative z-10">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="material-symbols-outlined text-amber-600 icon-fill text-xl">stars</span>
-                        <span className="font-bold text-sm text-slate-800">Pro Business</span>
-                      </div>
-                      <p className="text-[10px] text-slate-600 mb-3">50 Koin + Mentor AI Prioritas</p>
-                      <div className="flex items-center justify-between mt-auto">
-                        <div className="flex flex-col">
-                          <span className="text-[10px] text-slate-400 line-through">Rp 250.000</span>
-                          <span className="text-sm font-bold text-amber-700">Rp 199.000</span>
-                        </div>
-                        <button onClick={() => { addCoins(50, "Pro Business"); showToast("Pembelian Pro Business berhasil", "success"); }} className="px-4 py-1.5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold rounded-lg transition-colors">Beli</button>
-                      </div>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>

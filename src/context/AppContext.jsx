@@ -271,14 +271,29 @@ export function AppProvider({ children }) {
       else bepScore = 0;
     }
 
-    // 3) Tren bulan lalu (0-20, netral 10 kalau belum diisi keduanya)
+    // 3) Tren pertumbuhan laba: membandingkan laba bulan ini dengan bulan lalu (0-20, netral 10)
     let trendScore = 10;
     const netLalu = (keuntunganLalu || 0) - (kerugianLalu || 0);
     
     if (keuntunganLalu !== null || kerugianLalu !== null) {
-      if (netLalu > 0) trendScore = 20;
-      else if (netLalu < 0) trendScore = 0;
-      // Jika netLalu === 0, biarkan 10 (netral)
+      if (laba > 0 && netLalu > 0) {
+        // Sama-sama untung, cek persentase pertumbuhannya
+        const growth = (laba - netLalu) / netLalu;
+        if (growth >= 0.1) trendScore = 20; // Tumbuh > 10%
+        else if (growth >= 0) trendScore = 15; // Tumbuh tipis atau stagnan
+        else if (growth >= -0.2) trendScore = 10; // Turun sedikit (< 20%)
+        else trendScore = 5; // Laba merosot tajam
+      } else if (laba > 0 && netLalu <= 0) {
+        // Recovery: Bulan lalu rugi/impas, sekarang untung
+        trendScore = 20;
+      } else if (laba <= 0 && netLalu > 0) {
+        // Terpuruk: Bulan lalu untung, sekarang rugi
+        trendScore = 0;
+      } else {
+        // Sama-sama rugi
+        if (laba > netLalu) trendScore = 5; // Rugi mengecil (Recovery lambat)
+        else trendScore = 0; // Rugi makin dalam
+      }
     }
 
     const score = hasData ? Math.max(0, Math.min(100, Math.round(marginScore + bepScore + trendScore))) : null;

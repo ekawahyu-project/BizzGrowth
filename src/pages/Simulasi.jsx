@@ -42,7 +42,7 @@ function formatRp(n) {
 export default function Simulasi() {
   const [params] = useSearchParams();
   const navigate = useNavigate();
-  const { triggerSimulation, showToast, products } = useApp();
+  const { triggerSimulation, showToast, products, finances } = useApp();
 
   const [view, setView] = useState("list"); // list | form | result
 
@@ -50,11 +50,11 @@ export default function Simulasi() {
   const [hargaAwal, setHargaAwal] = useState("");
   const [namaProduk, setNamaProduk] = useState("");
   const [hpp, setHpp] = useState("");
-  const [pemasukan, setPemasukan] = useState("");
-  const [pengeluaran, setPengeluaran] = useState("");
-  const [keuntunganLalu, setKeuntunganLalu] = useState("");
-  const [kerugianLalu, setKerugianLalu] = useState("");
-  const [bep, setBep] = useState("");
+  const [pemasukan, setPemasukan] = useState(finances?.pemasukanBulanan || "");
+  const [pengeluaran, setPengeluaran] = useState(finances?.pengeluaranBulanan || "");
+  const [keuntunganLalu, setKeuntunganLalu] = useState(finances?.keuntunganLalu || "");
+  const [kerugianLalu, setKerugianLalu] = useState(finances?.kerugianLalu || "");
+  const [bep, setBep] = useState(finances?.bep || "");
 
   // --- Skenario baru ---
   const [pricePct, setPricePct] = useState(10);
@@ -257,6 +257,31 @@ export default function Simulasi() {
             </div>
 
             <div className="grid grid-cols-1 gap-4">
+              {products.length > 0 && (
+                <div>
+                  <label className="block text-xs font-semibold text-slate-600 mb-1.5">Pilih dari Produk Tersimpan</label>
+                  <select
+                    className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 outline-none text-sm bg-white"
+                    onChange={(e) => {
+                      const idx = parseInt(e.target.value, 10);
+                      if (!isNaN(idx)) {
+                        const p = products[idx];
+                        if (p) {
+                          setNamaProduk(p.name);
+                          setHargaAwal(String(p.price || ""));
+                        }
+                      }
+                    }}
+                  >
+                    <option value="">-- Ketik manual atau pilih produk --</option>
+                    {products.map((p, index) => (
+                      <option key={index} value={index}>
+                        {p.name} (Rp {Number(p.price).toLocaleString("id-ID")})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
               <TextField
                 label="Nama Produk"
                 value={namaProduk}
@@ -622,9 +647,11 @@ export default function Simulasi() {
                   <h3 className="font-bold text-slate-800 text-sm">Rekomendasi AI</h3>
                 </div>
                 <p className="text-sm text-slate-600 leading-relaxed">
-                  {result.bepStatus === "risiko"
+                  {result.bepStatus === "unknown"
+                    ? "Mohon lengkapi Data Bisnis (Harga Awal, Pemasukan, dll) untuk melihat analisis dan rekomendasi risiko yang akurat dari AI."
+                    : result.bepStatus === "risiko"
                     ? "Estimasi pendapatan berada di bawah target BEP Anda. Pertimbangkan strategi promosi tambahan atau tinjau ulang besaran penyesuaian harga."
-                    : "Strategi ini cocok dijalankan dalam 1–2 bulan. Kombinasikan dengan promosi bundling untuk hasil lebih optimal."}
+                    : "Strategi ini tampak solid dan berpotensi menguntungkan (di atas BEP). Cocok dijalankan dalam 1–2 bulan. Kombinasikan dengan promosi bundling untuk hasil lebih optimal."}
                   {" "}Estimasi ini memakai asumsi elastisitas harga sederhana — gunakan sebagai gambaran awal, bukan angka pasti.
                 </p>
               </div>

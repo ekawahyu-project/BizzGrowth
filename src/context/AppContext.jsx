@@ -200,8 +200,8 @@ export function AppProvider({ children }) {
     ]);
   }, []);
 
-  const removeProduct = useCallback((id) => {
-    setProducts((prev) => prev.filter((p) => p.id !== id));
+  const removeProduct = useCallback((index) => {
+    setProducts((prev) => prev.filter((_, i) => i !== index));
   }, []);
 
   const login = useCallback(() => {

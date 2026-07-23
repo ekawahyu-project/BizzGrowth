@@ -306,8 +306,8 @@ function ProductManager() {
         {products.length === 0 && (
           <p className="text-sm text-slate-400 text-center py-4">Belum ada produk. Tambahkan di bawah ini.</p>
         )}
-        {products.map((p) => (
-          <div key={p.id} className="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
+        {products.map((p, index) => (
+          <div key={index} className="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
             <div>
               <p className="text-sm font-bold text-slate-800">{p.name}</p>
               {p.price ? (
@@ -319,7 +319,7 @@ function ProductManager() {
               )}
             </div>
             <button
-              onClick={() => removeProduct(p.id)}
+              onClick={() => removeProduct(index)}
               className="w-8 h-8 rounded-lg flex items-center justify-center text-rose-500 hover:bg-rose-50 transition-colors shrink-0"
             >
               <span className="material-symbols-outlined text-lg">delete</span>

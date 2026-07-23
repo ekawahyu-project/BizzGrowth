@@ -148,9 +148,9 @@ export default function Simulasi() {
       bepNum,
       untungRuguDeltaPct,
       promoStrategies,
-      bundledProducts: products.filter((p) => bundledProductIds.includes(p.id)),
-      buyProduct: products.find((p) => p.id === buyProductId) || null,
-      getProduct: products.find((p) => p.id === getProductId) || null,
+      bundledProducts: products.filter((p, i) => bundledProductIds.includes(i)),
+      buyProduct: buyProductId !== "" ? products[parseInt(buyProductId, 10)] || null : null,
+      getProduct: getProductId !== "" ? products[parseInt(getProductId, 10)] || null : null,
       scaleLabel: SCALE_OPTIONS.find((s) => s.key === scaleType)?.label ?? SCALE_OPTIONS[0].label,
     };
   }
@@ -408,13 +408,13 @@ export default function Simulasi() {
                     Pilih Produk yang Dibundling
                   </label>
                   <div className="flex flex-wrap gap-2">
-                    {products.map((p) => {
-                      const active = bundledProductIds.includes(p.id);
+                    {products.map((p, index) => {
+                      const active = bundledProductIds.includes(index);
                       return (
                         <button
-                          key={p.id}
+                          key={index}
                           type="button"
-                          onClick={() => toggleBundledProduct(p.id)}
+                          onClick={() => toggleBundledProduct(index)}
                           className={`px-3 py-1.5 rounded-full border-2 text-xs font-semibold transition-all ${
                             active ? "border-primary-600 bg-primary-50 text-primary-700" : "border-slate-200 text-slate-600"
                           }`}
@@ -438,8 +438,8 @@ export default function Simulasi() {
                         className="w-full px-3 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 outline-none text-sm bg-white"
                       >
                         <option value="">Pilih produk...</option>
-                        {products.map((p) => (
-                          <option key={p.id} value={p.id}>
+                        {products.map((p, index) => (
+                          <option key={index} value={index}>
                             {p.name}
                           </option>
                         ))}
@@ -453,8 +453,8 @@ export default function Simulasi() {
                         className="w-full px-3 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 outline-none text-sm bg-white"
                       >
                         <option value="">Pilih produk...</option>
-                        {products.map((p) => (
-                          <option key={p.id} value={p.id}>
+                        {products.map((p, index) => (
+                          <option key={index} value={index}>
                             {p.name}
                           </option>
                         ))}

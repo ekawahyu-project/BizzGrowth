@@ -1,4 +1,4 @@
-# SimulaBiz — AI Business Simulator untuk UMKM
+# SimulaBiz — AI Business Simulator untuk Bisnis
 
 Platform simulasi keputusan bisnis, intelijen keuangan, dan konsultasi AI untuk Bisnis. Dibangun sebagai React SPA (Vite + React Router + Tailwind CSS).
 
@@ -19,7 +19,7 @@ Platform simulasi keputusan bisnis, intelijen keuangan, dan konsultasi AI untuk 
 
 Halaman yang butuh login dijaga oleh `ProtectedRoute` — kalau belum/tidak login (termasuk setelah logout), diarahkan ke `/` (Landing), bukan langsung ke form login.
 
-## Model Bisnis (Koin & Token)
+## Model Bisnis (Koin, Token & Referral)
 
 ### Biaya Simulasi (Koin)
 | Aktivitas | Biaya |
@@ -30,14 +30,31 @@ Halaman yang butuh login dijaga oleh `ProtectedRoute` — kalau belum/tidak logi
 | Analisis Mendalam per metrik (Insight) | 1–2 Koin |
 | Laporan Analisis Lengkap (Ekspansi) | 2 Koin |
 
-### Top-up Koin
-1 Koin/Rp4.999 · 3/Rp14.499 · 5/Rp23.999 · 10/Rp47.999 · 20/Rp94.999 · 50/Rp228.999 — diatur di `src/components/modals/ProfileModal.jsx`.
+### Top-up Koin & Paket Bundling Spesial
+1. **Paket Koin Standar**: 1 Koin/Rp4.999 · 3/Rp14.499 · 5/Rp23.999 · 10/Rp47.999 · 20/Rp94.999 · 50/Rp228.999
+2. **Paket Bundling Spesial**:
+   - **Starter Pack** (Rp29.000 / 7 Koin): Hemat 20% + Bebas Akses Simulator 1 Bulan.
+   - **Pro Business** (Rp79.000 / 20 Koin): Pilihan Populer + Mentor AI Prioritas.
+   *(Diatur di `src/components/modals/ProfileModal.jsx`)*
 
-### Koin Gratis
-Cuma dari program **Undang Teman UMKM** (+2 Koin/teman berhasil daftar).
+### Program Referral & Kode Unik
+- **Kode Referral Sendiri**: Pengguna dapat melihat dan menyalin (*copy to clipboard*) kode referral unik milik akun sendiri di tab Dompet & Misi modal Profil.
+- **Klaim Kode Referral Teman**: Kolom input kode referral teman di bawah bagian top-up untuk mendapatkan +5 Koin gratis otomatis setelah klaim valid.
+- **Undang Teman UMKM**: Berbagi kode referral untuk mendapatkan bonus Koin tambahan.
 
 ### Token AI Mentor
 Setiap pesan chat = 1 Token. User baru dapat **5 token gratis**. Kalau habis, bisa ditukar dari koin: **1 Koin = 5 Token** (tombol muncul otomatis di halaman AI Mentor saat token = 0).
+
+## Fitur Analisis Mendalam & Laporan Konsultan AI (Dinamis Data Profil)
+
+Laporan Analisis di `/insight` (Optimasi Keuangan) dan `/ekspansi` (Kesiapan Pasar Global) **terintegrasi secara dinamis** dengan data Keuangan Bisnis yang diisi oleh pengguna pada Profil:
+- **Perhitungan Dinamis**: Skor Kesiapan, Sub-skor, Margin, dan Status Risiko dihitung langsung dari data Pemasukan, Pengeluaran, BEP, dan Margin Keuangan riil dari `healthMetrics`.
+- **Format Laporan Konsultan Keuangan Lengkap**:
+  - **Rincian Skor Kesiapan** (visual progress bar per kategori)
+  - **Estimasi Efisiensi Biaya / Logistik** (angka efisiensi & proyeksi riil)
+  - **Temuan Utama & Rekomendasi Strategis** (paragraf analisis terstruktur + rekomendasi taktis)
+  - **Langkah Selanjutnya** (SOP aksi nyata berbasis prioritas)
+  - **Ekspor & Download**: Fitur unduh laporan lengkap sebagai file `.txt` atau cetak.
 
 ## Manajemen Produk
 
@@ -57,7 +74,7 @@ src/
 ├── main.jsx / App.jsx          # Entry point & routing (termasuk RootRoute untuk Landing vs redirect)
 ├── index.css                   # Tailwind + sistem warna + dark mode overrides
 ├── nav.js                      # Konfigurasi menu sidebar
-├── context/AppContext.jsx      # State global: auth, profil, koin, token, produk, toast, modal, tema
+├── context/AppContext.jsx      # State global: auth, profil, koin, token, produk, keuangan (healthMetrics), toast, modal, tema
 ├── components/
 │   ├── Layout.jsx / Sidebar.jsx / MobileHeader.jsx / MobileDrawer.jsx
 │   ├── ThemeToggle.jsx         # Saklar mode gelap/terang (ada varian compact untuk navbar)
@@ -68,8 +85,8 @@ src/
     ├── Login.jsx / Register.jsx
     ├── Beranda.jsx
     ├── Simulasi.jsx
-    ├── Insight.jsx
-    ├── Ekspansi.jsx
+    ├── Insight.jsx             # Optimasi Keuangan & Laporan Analisis Mendalam Dinamis
+    ├── Ekspansi.jsx            # Kesiapan Pasar Global & Laporan Analisis Lengkap Dinamis
     ├── AIMentor.jsx
     └── Profil.jsx
 ```
@@ -102,6 +119,9 @@ vercel --prod
 
 Halaman Simulasi (bagian Ekspansi) memakai `public/BukaCabang.jpg`, `public/EkspansiMarketplace.jpg`, `public/EksporGlobal.jpg` — pastikan file-file ini ada di folder `public/` (nama harus persis sama) sebelum `npm run dev`/`npm run build`.
 
-## Riwayat Perbaikan Penting
+## Riwayat Perbaikan & Pembaruan Penting
 
-- **Race condition di `deductCoins` dan `useToken`**: kode lama membaca hasil pengecekan saldo dari dalam callback `setState` yang asinkron, lalu langsung `return` sebelum callback-nya sempat jalan — akibatnya saldo tetap terpotong tapi fungsi pemanggil (simulasi/chat) selalu dianggap gagal. Sudah diperbaiki dengan membaca nilai state langsung dari scope komponen.
+- **Integrasi Analisis Dinamis**: Fitur *Analisis Mendalam* di Insight dan *Laporan Lengkap* di Ekspansi kini mengambil dan memproses data keuangan riil dari Profil pengguna (`healthMetrics`).
+- **Sistem Referral & Kode Unik**: Menambahkan tampilan Kode Referral Akun Pengguna + tombol *Copy*, serta form Klaim Kode Referral Teman (+5 Koin).
+- **Paket Bundling Koin**: Penambahan opsi Paket Bundling Spesial (*Starter Pack* dan *Pro Business*) pada modal top-up dompet koin.
+- **Race condition di `deductCoins` dan `useToken`**: kode lama membaca hasil pengecekan saldo dari dalam callback `setState` yang asinkron — sudah diperbaiki dengan membaca nilai state langsung dari scope komponen.

@@ -8,14 +8,9 @@ const COUNTRIES = [
   { flag: "🇸🇦", name: "Arab Saudi", score: 78 },
 ];
 
-const EXPORT_SCORE = 76;
-
-const SUB_SCORES = [
-  { label: "Kualitas Produk", value: 88 },
-  { label: "Kapasitas Produksi", value: 64 },
-  { label: "Kepatuhan Regulasi", value: 71 },
-  { label: "Daya Saing Harga", value: 80 },
-];
+// The following will be dynamically generated inside the component
+// const EXPORT_SCORE = 76;
+// const SUB_SCORES = ...
 
 const LOGISTICS = [
   { flag: "🇲🇾", name: "Malaysia", cost: "Rp 18.000/kg", time: "3-5 hari", tariff: "5%" },
@@ -53,9 +48,27 @@ const NEXT_STEPS = [
 
 export default function Ekspansi() {
   const navigate = useNavigate();
-  const { triggerSimulation, profile, showToast } = useApp();
+  const { triggerSimulation, profile, healthMetrics, showToast } = useApp();
+  const hm = healthMetrics;
   const [showRecommendation, setShowRecommendation] = useState(false);
   const [analysisState, setAnalysisState] = useState("idle"); // idle | loading | done
+
+  // Calculate dynamic export score based on health score
+  const EXPORT_SCORE = hm.hasData ? Math.max(15, Math.round((hm.score || 10) * 0.9)) : 76;
+  
+  const SUB_SCORES = [
+    { label: "Kualitas Produk", value: Math.min(100, EXPORT_SCORE + 12) },
+    { label: "Kapasitas Produksi", value: Math.max(10, EXPORT_SCORE - 12) },
+    { label: "Kepatuhan Regulasi", value: Math.max(15, EXPORT_SCORE - 5) },
+    { label: "Daya Saing Harga", value: Math.min(100, Math.round(EXPORT_SCORE + (hm.marginRatio * 20))) },
+  ];
+
+  const exportStatus = EXPORT_SCORE >= 70 ? "Siap Ekspor" : EXPORT_SCORE >= 50 ? "Potensi Berkembang" : "Belum Siap Ekspor";
+  const exportMessage = EXPORT_SCORE >= 70 
+    ? "Produk Anda memiliki potensi bagus untuk pasar internasional."
+    : EXPORT_SCORE >= 50
+    ? "Bisnis Anda mulai stabil, tingkatkan margin untuk siap ekspor."
+    : "Fokus perbaiki cash flow dan margin keuntungan di pasar lokal terlebih dahulu.";
 
   const circumference = 2 * Math.PI * 15.9155;
   const dash = (EXPORT_SCORE / 100) * circumference;
@@ -70,7 +83,7 @@ export default function Ekspansi() {
   function downloadReport() {
     let content = `LAPORAN KESIAPAN PASAR GLOBAL — ${profile.business || "Bisnis Anda"}\n`;
     content += "=".repeat(50) + "\n\n";
-    content += `Skor Kesiapan Ekspor: ${EXPORT_SCORE}/100 (Siap Ekspor)\n\n`;
+    content += `Skor Kesiapan Ekspor: ${EXPORT_SCORE}/100 (${exportStatus})\n\n`;
     content += "SUB-SKOR\n";
     SUB_SCORES.forEach((s) => (content += `- ${s.label}: ${s.value}/100\n`));
     content += "\nESTIMASI BIAYA & LOGISTIK\n";
@@ -146,9 +159,9 @@ export default function Ekspansi() {
                 </div>
               </div>
               <div>
-                <p className="font-bold text-primary-700 text-sm mb-1">Siap Ekspor</p>
+                <p className={`font-bold text-sm mb-1 ${EXPORT_SCORE >= 50 ? 'text-primary-700' : 'text-rose-600'}`}>{exportStatus}</p>
                 <p className="text-xs text-slate-500 leading-relaxed">
-                  Produk Anda memiliki potensi bagus untuk pasar internasional.
+                  {exportMessage}
                 </p>
                 <button
                   onClick={() => setShowRecommendation((v) => !v)}

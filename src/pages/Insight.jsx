@@ -8,82 +8,89 @@ const DEEP_METRICS = [
   { icon: "electric_bolt", iconColor: "text-rose-500", name: "Biaya Operasional", current: "Rp 2.100.000", projected: "Rp 3.200.000", projectedColor: "text-rose-500", cost: 1 },
 ];
 
-const REPORT_DATA = {
-  "Perputaran Stok": {
-    scores: [
-      { label: "Rasio Stok Bergerak", value: 88 },
-      { label: "Akurasi Pencatatan", value: 80 },
-      { label: "Kapasitas Gudang", value: 71 },
-      { label: "Kepatuhan FIFO", value: 64 },
-    ],
-    tableTitle: "Estimasi Efisiensi Biaya",
-    tableData: [
-      { icon: "warehouse", title: "Biaya Penyimpanan", subtitle: "Berpotensi turun 15%", value: "-Rp 450.000" },
-      { icon: "trending_up", title: "Pencairan Modal", subtitle: "Dari stok mati (dead stock)", value: "+Rp 2.100.000" },
-      { icon: "inventory_2", title: "Laba Kotor", subtitle: "Optimalisasi perputaran", value: "+Rp 1.200.000" },
-    ],
-    temuanText: "Analisis mendalam menunjukkan adanya penumpukan modal kerja pada inventory sebesar 22% di atas batas ideal industri. Tingkat perputaran saat ini (4.2x) mengindikasikan pergerakan barang lebih lambat dari tren pasar (5.5x), yang berisiko meningkatkan biaya penyimpanan dan depresiasi nilai barang.",
-    rekomendasiList: [
-      { title: "Restrukturisasi Inventory:", desc: "Terapkan teknik Product Bundling untuk SKU yang bergerak lambat (slow-moving) dengan produk terlaris (hero products) untuk mendongkrak pencairan stok hingga 15% dalam kuartal ini." },
-      { title: "Optimasi Sistem:", desc: "Transisi ke sistem pencatatan inventaris otomatis dengan metode First-In First-Out (FIFO) yang ketat. Ini diproyeksikan akan memperbaiki perputaran menjadi 4.8x per tahun." },
-      { title: "Negosiasi Supplier:", desc: "Tinjau ulang MOQ (Minimum Order Quantity) dengan pemasok utama untuk pembelian dalam lot yang lebih kecil (Just-in-Time) guna menjaga likuiditas kas." }
-    ],
-    steps: [
-      "Lakukan audit fisik gudang secara menyeluruh akhir pekan ini.",
-      "Identifikasi 5 produk paling lambat laku dan siapkan paket bundling promo.",
-      "Hubungi supplier utama untuk menegosiasikan skema pemesanan mingguan."
-    ]
-  },
-  "Biaya Akuisisi Pelanggan": {
-    scores: [
-      { label: "Retensi Pelanggan (CRR)", value: 82 },
-      { label: "Conversion Rate", value: 75 },
-      { label: "ROAS Iklan Berbayar", value: 60 },
-      { label: "Jangkauan Organik", value: 50 },
-    ],
-    tableTitle: "Proyeksi Marketing",
-    tableData: [
-      { icon: "group_add", title: "Target CAC Baru", subtitle: "Setelah optimasi", value: "Rp 10.500/pax" },
-      { icon: "loyalty", title: "Target LTV", subtitle: "Lifetime Value per pelanggan", value: "Rp 350.000" },
-      { icon: "campaign", title: "Penghematan Iklan", subtitle: "Re-alokasi budget", value: "Rp 1.500.000" },
-    ],
-    temuanText: "Terdapat lonjakan Customer Acquisition Cost (CAC) yang diproyeksikan naik dari Rp 12.400 ke Rp 14.100. Kenaikan ini sejalan dengan inflasi tarif iklan digital (CPM) dan saturasi audiens di channel pemasaran saat ini. Return on Ad Spend (ROAS) menunjukkan tren penurunan 12% dalam 3 bulan terakhir.",
-    rekomendasiList: [
-      { title: "Fokus pada Retensi:", desc: "Mengakuisisi pelanggan baru 5x lebih mahal dari mempertahankan yang lama. Alihkan 20% budget iklan untuk program Loyalty/Referral untuk meningkatkan Customer Lifetime Value (CLV)." },
-      { title: "Diversifikasi Channel:", desc: "Kurangi ketergantungan pada iklan berbayar. Mulai bangun aset pemasaran organik yang kuat, seperti optimalisasi SEO lokal atau pemasaran konten video pendek (TikTok/Reels) minimal 3x seminggu." },
-      { title: "Segmentasi Ulang:", desc: "Lakukan analisis kohort pada data pelanggan untuk menargetkan ulang (retargeting) segmen spesifik dengan konversi tertinggi (lookalike audiences) agar konversi iklan lebih efisien." }
-    ],
-    steps: [
-      "Rancang skema reward program referral (misal: Diskon 20% untuk pengajak & diajak).",
-      "Evaluasi dan matikan kampanye iklan berbayar yang memiliki ROAS di bawah 2.0x.",
-      "Buat content calendar bulanan untuk sosial media."
-    ]
-  },
-  "Biaya Operasional": {
-    scores: [
-      { label: "Produktivitas Staf", value: 85 },
-      { label: "Rasio Fixed Cost", value: 70 },
-      { label: "Negosiasi Supplier", value: 60 },
-      { label: "Efisiensi Utilitas", value: 55 },
-    ],
-    tableTitle: "Proyeksi Penghematan Operasional",
-    tableData: [
-      { icon: "electric_bolt", title: "Efisiensi Listrik & Air", subtitle: "Penghematan 15%", value: "Rp 300.000/bln" },
-      { icon: "soup_kitchen", title: "Bahan Baku (Hedging)", subtitle: "Kunci harga lama", value: "Rp 500.000/bln" },
-      { icon: "schedule", title: "Optimasi Jam Shift", subtitle: "Penyesuaian jam sepi", value: "Rp 800.000/bln" },
-    ],
-    temuanText: "Proyeksi menunjukkan potensi pembengkakan OPEX (Operational Expenditure) yang signifikan menjadi Rp 3.200.000. Faktor pendorong utama adalah eskalasi biaya utilitas (listrik/air) yang tidak proporsional dengan peningkatan volume penjualan, serta inefisiensi pada rantai pasok bahan baku dasar.",
-    rekomendasiList: [
-      { title: "Audit Utilitas & Overhead:", desc: "Lakukan pengetatan dan audit menyeluruh terhadap pengeluaran tetap bulanan. Implementasikan kebijakan hemat energi di luar jam operasional puncak untuk memotong beban utilitas sebesar 10-15%." },
-      { title: "Hedging Bahan Baku:", desc: "Fluktuasi harga pasar menekan margin. Direkomendasikan untuk mengunci harga lama melalui kontrak jangka panjang dengan pemasok kunci, atau mencari second-source supplier untuk kompetisi harga." },
-      { title: "Otomatisasi Proses:", desc: "Evaluasi alur kerja operasional. Kurangi jam lembur dengan mengotomatiskan tugas-tugas repetitif menggunakan software manajemen bisnis terintegrasi untuk meningkatkan output per kapita." }
-    ],
-    steps: [
-      "Review tagihan utilitas 3 bulan terakhir untuk mencari anomali penggunaan.",
-      "Terapkan SOP baru penghematan energi di toko/kantor mulai besok.",
-      "Buat janji temu dengan supplier utama untuk membahas kontrak jangka panjang."
-    ]
-  }
+const getReportData = (hm) => {
+  const isLoss = hm && hm.laba < 0;
+  const marginStr = hm && hm.marginRatio ? (hm.marginRatio * 100).toFixed(1) : "0.0";
+  const pemasukanStr = hm && hm.pemasukan ? hm.pemasukan.toLocaleString('id-ID') : "0";
+  const pengeluaranStr = hm && hm.pengeluaran ? hm.pengeluaran.toLocaleString('id-ID') : "0";
+
+  return {
+    "Perputaran Stok": {
+      scores: [
+        { label: "Rasio Stok Bergerak", value: hm && hm.score ? Math.min(100, Math.max(10, hm.score + 10)) : 88 },
+        { label: "Akurasi Pencatatan", value: 80 },
+        { label: "Kapasitas Gudang", value: 71 },
+        { label: "Kepatuhan FIFO", value: 64 },
+      ],
+      tableTitle: "Estimasi Efisiensi Biaya",
+      tableData: [
+        { icon: "warehouse", title: "Biaya Penyimpanan", subtitle: "Berpotensi turun 15%", value: "-Rp 450.000" },
+        { icon: "trending_up", title: "Pencairan Modal", subtitle: "Dari stok mati (dead stock)", value: "+Rp 2.100.000" },
+        { icon: "inventory_2", title: "Laba Kotor", subtitle: "Optimalisasi perputaran", value: "+Rp 1.200.000" },
+      ],
+      temuanText: `Analisis mendalam menunjukkan adanya penumpukan modal kerja pada inventory. Dengan margin profit saat ini di angka ${marginStr}%, pergerakan barang yang lambat akan semakin membebani biaya penyimpanan dan berisiko pada depresiasi nilai barang. Tingkat perputaran saat ini mengindikasikan pergerakan barang lebih lambat dari tren pasar.`,
+      rekomendasiList: [
+        { title: "Restrukturisasi Inventory:", desc: "Terapkan teknik Product Bundling untuk SKU yang bergerak lambat (slow-moving) dengan produk terlaris (hero products) untuk mendongkrak pencairan stok hingga 15% dalam kuartal ini." },
+        { title: "Optimasi Sistem:", desc: "Transisi ke sistem pencatatan inventaris otomatis dengan metode First-In First-Out (FIFO) yang ketat. Ini diproyeksikan akan memperbaiki perputaran stok secara berkala." },
+        { title: "Negosiasi Supplier:", desc: "Tinjau ulang MOQ (Minimum Order Quantity) dengan pemasok utama untuk pembelian dalam lot yang lebih kecil (Just-in-Time) guna menjaga likuiditas kas." }
+      ],
+      steps: [
+        "Lakukan audit fisik gudang secara menyeluruh akhir pekan ini.",
+        "Identifikasi 5 produk paling lambat laku dan siapkan paket bundling promo.",
+        "Hubungi supplier utama untuk menegosiasikan skema pemesanan mingguan."
+      ]
+    },
+    "Biaya Akuisisi Pelanggan": {
+      scores: [
+        { label: "Retensi Pelanggan (CRR)", value: hm && hm.score ? Math.min(100, Math.max(10, hm.score + 5)) : 82 },
+        { label: "Conversion Rate", value: 75 },
+        { label: "ROAS Iklan Berbayar", value: hm && hm.score ? Math.min(100, Math.max(10, hm.score - 10)) : 60 },
+        { label: "Jangkauan Organik", value: 50 },
+      ],
+      tableTitle: "Proyeksi Marketing",
+      tableData: [
+        { icon: "group_add", title: "Target CAC Baru", subtitle: "Setelah optimasi", value: "Rp 10.500/pax" },
+        { icon: "loyalty", title: "Target LTV", subtitle: "Lifetime Value per pelanggan", value: "Rp 350.000" },
+        { icon: "campaign", title: "Penghematan Iklan", subtitle: "Re-alokasi budget", value: "Rp 1.500.000" },
+      ],
+      temuanText: `Terdapat indikasi Customer Acquisition Cost (CAC) yang kurang efisien. Dengan pengeluaran total sebesar Rp ${pengeluaranStr}${isLoss ? " dan bisnis yang sedang merugi (cash flow waspada/negatif)" : ""}, menekan biaya akuisisi sangat krusial. Kenaikan ini sejalan dengan inflasi tarif iklan digital (CPM) dan saturasi audiens di channel pemasaran saat ini.`,
+      rekomendasiList: [
+        { title: "Fokus pada Retensi:", desc: "Mengakuisisi pelanggan baru 5x lebih mahal dari mempertahankan yang lama. Alihkan 20% budget iklan untuk program Loyalty/Referral untuk meningkatkan Customer Lifetime Value (CLV)." },
+        { title: "Diversifikasi Channel:", desc: "Kurangi ketergantungan pada iklan berbayar. Mulai bangun aset pemasaran organik yang kuat, seperti optimalisasi SEO lokal atau pemasaran konten video pendek (TikTok/Reels) minimal 3x seminggu." },
+        { title: "Segmentasi Ulang:", desc: "Lakukan analisis kohort pada data pelanggan untuk menargetkan ulang (retargeting) segmen spesifik dengan konversi tertinggi (lookalike audiences) agar konversi iklan lebih efisien." }
+      ],
+      steps: [
+        "Rancang skema reward program referral (misal: Diskon 20% untuk pengajak & diajak).",
+        "Evaluasi dan matikan kampanye iklan berbayar yang memiliki ROAS rendah.",
+        "Buat content calendar bulanan untuk sosial media."
+      ]
+    },
+    "Biaya Operasional": {
+      scores: [
+        { label: "Produktivitas Staf", value: 85 },
+        { label: "Rasio Fixed Cost", value: hm && hm.score ? Math.min(100, Math.max(10, hm.score - 15)) : 70 },
+        { label: "Negosiasi Supplier", value: 60 },
+        { label: "Efisiensi Utilitas", value: 55 },
+      ],
+      tableTitle: "Proyeksi Penghematan Operasional",
+      tableData: [
+        { icon: "electric_bolt", title: "Efisiensi Listrik & Air", subtitle: "Penghematan 15%", value: "Rp 300.000/bln" },
+        { icon: "soup_kitchen", title: "Bahan Baku (Hedging)", subtitle: "Kunci harga lama", value: "Rp 500.000/bln" },
+        { icon: "schedule", title: "Optimasi Jam Shift", subtitle: "Penyesuaian jam sepi", value: "Rp 800.000/bln" },
+      ],
+      temuanText: `Proyeksi menunjukkan beban OPEX (Operational Expenditure) yang signifikan, mencapai total Rp ${pengeluaranStr} per bulan. Faktor pendorong utama adalah biaya tetap dan utilitas yang memakan terlalu banyak porsi dari total pemasukan (Rp ${pemasukanStr}). Terdapat inefisiensi pada rantai pasok bahan baku dasar.`,
+      rekomendasiList: [
+        { title: "Audit Utilitas & Overhead:", desc: "Lakukan pengetatan dan audit menyeluruh terhadap pengeluaran tetap bulanan. Implementasikan kebijakan hemat energi di luar jam operasional puncak untuk memotong beban utilitas sebesar 10-15%." },
+        { title: "Hedging Bahan Baku:", desc: "Fluktuasi harga pasar menekan margin. Direkomendasikan untuk mengunci harga lama melalui kontrak jangka panjang dengan pemasok kunci, atau mencari second-source supplier untuk kompetisi harga." },
+        { title: "Otomatisasi Proses:", desc: "Evaluasi alur kerja operasional. Kurangi jam lembur dengan mengotomatiskan tugas-tugas repetitif menggunakan software manajemen bisnis terintegrasi untuk meningkatkan output per kapita." }
+      ],
+      steps: [
+        "Review tagihan utilitas 3 bulan terakhir untuk mencari anomali penggunaan.",
+        "Terapkan SOP baru penghematan energi di toko/kantor mulai besok.",
+        "Buat janji temu dengan supplier utama untuk membahas kontrak jangka panjang."
+      ]
+    }
+  };
 };
 
 function formatRp(n) {
@@ -364,7 +371,9 @@ export default function Insight() {
         </div>
       )}
 
-      {reportState === "done" && activeMetric && REPORT_DATA[activeMetric] && (
+      {reportState === "done" && activeMetric && getReportData(hm)[activeMetric] && (() => {
+        const reportData = getReportData(hm)[activeMetric];
+        return (
         <section className="space-y-5 animate-fade-in-up mt-8 pt-4 border-t-2 border-dashed border-slate-200">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -384,7 +393,7 @@ export default function Insight() {
             <div className="premium-card rounded-2xl p-5">
               <h3 className="text-sm font-bold text-slate-800 mb-4">Rincian Skor Kesiapan</h3>
               <div className="space-y-3">
-                {REPORT_DATA[activeMetric].scores.map((s) => (
+                {reportData.scores.map((s) => (
                   <div key={s.label}>
                     <div className="flex justify-between text-xs mb-1">
                       <span className="font-semibold text-slate-600">{s.label}</span>
@@ -404,10 +413,10 @@ export default function Insight() {
             {/* Logistics/Estimation table */}
             <div className="premium-card rounded-2xl overflow-hidden">
               <div className="p-4 border-b border-slate-100 bg-slate-50">
-                <h3 className="text-sm font-bold text-slate-800">{REPORT_DATA[activeMetric].tableTitle}</h3>
+                <h3 className="text-sm font-bold text-slate-800">{reportData.tableTitle}</h3>
               </div>
               <div className="divide-y divide-slate-100">
-                {REPORT_DATA[activeMetric].tableData.map((d) => (
+                {reportData.tableData.map((d) => (
                   <div key={d.title} className="p-4 flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-primary-50 flex items-center justify-center shrink-0">
@@ -433,7 +442,7 @@ export default function Insight() {
                 Temuan Utama
               </h4>
               <p className="text-xs text-slate-600 leading-relaxed">
-                {REPORT_DATA[activeMetric].temuanText}
+                {reportData.temuanText}
               </p>
             </div>
             <div>
@@ -442,7 +451,7 @@ export default function Insight() {
                 Rekomendasi Strategis
               </h4>
               <ul className="list-disc pl-4 space-y-2 text-xs text-slate-600 marker:text-primary-400">
-                {REPORT_DATA[activeMetric].rekomendasiList.map((rek, idx) => (
+                {reportData.rekomendasiList.map((rek, idx) => (
                   <li key={idx}>
                     <span className="font-bold text-slate-700">{rek.title}</span> {rek.desc}
                   </li>
@@ -458,7 +467,7 @@ export default function Insight() {
               <h3 className="font-bold text-indigo-100 text-base">Langkah Selanjutnya</h3>
             </div>
             <ul className="space-y-3">
-              {REPORT_DATA[activeMetric].steps.map((step, i) => (
+              {reportData.steps.map((step, i) => (
                 <li key={step} className="flex gap-3 text-sm text-indigo-50">
                   <span className="font-bold text-indigo-400 shrink-0">{i + 1}.</span>
                   <span className="leading-relaxed">{step}</span>
@@ -483,7 +492,8 @@ export default function Insight() {
             </button>
           </div>
         </section>
-      )}
+        );
+      })()}
     </div>
   );
 }
